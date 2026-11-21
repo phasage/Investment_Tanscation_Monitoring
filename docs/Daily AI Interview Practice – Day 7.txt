@@ -1,0 +1,1210 @@
+Daily AI Interview Practice – Day 7
+
+Topic: Machine Learning Model Evaluation – Accuracy, Precision, Recall, F1-Score, Confusion Matrix and ROC-AUC
+
+Target position: Technical Lead – AI & GenAI
+Experience: 16+ years in enterprise software development
+Current AI knowledge: Beginner
+Daily study duration: 60 minutes
+Language: English
+
+
+---
+
+Today's learning objectives
+
+In Day 5, you learned Machine Learning fundamentals.
+
+In Day 6, you learned Decision Trees, Random Forest and K-Means clustering.
+
+Today, we will learn something extremely important for AI interviews and real-world enterprise AI projects:
+
+How do we know whether a Machine Learning model is good enough to use in production?
+
+Imagine that you have developed an ML model to identify potentially suspicious investment transactions.
+
+The model predicts whether a transaction requires investigation.
+
+But how do you know whether its predictions are reliable?
+
+- What percentage of predictions are correct?
+- How many suspicious transactions does it miss?
+- How many normal transactions does it incorrectly flag?
+- How do you measure model performance?
+- How do you decide whether the model is ready for production?
+
+These are the questions today's lesson will answer.
+
+Today's 60-minute learning plan
+
+Activity	Time
+
+Understanding model evaluation	10 min
+Performance metrics	15 min
+Hands-on Python exercise	15 min
+Technical Lead interview questions	10 min
+Architecture scenario and knowledge test	10 min
+Total	60 min
+
+
+
+---
+
+Part 1: What is Model Evaluation? (10 minutes)
+
+1. Understanding Model Evaluation
+
+Model evaluation is the process of measuring how effectively a trained Machine Learning model makes predictions.
+
+Let's take an example from your investment management domain.
+
+Your organization processes 100,000 financial transactions daily.
+
+You develop an ML model to identify transactions that may require investigation.
+
+After training, you test the model using historical transactions whose actual outcomes are known.
+
+Suppose you get these results:
+
+Metric	Result
+
+Total transactions tested	1,000
+Correct predictions	950
+Incorrect predictions	50
+Accuracy	95%
+
+
+At first glance, 95% accuracy looks excellent.
+
+But there is a problem.
+
+What if the model identifies only 5% of the transactions that genuinely require investigation?
+
+That would be a serious issue.
+
+This is why accuracy alone is not enough.
+
+We need to understand multiple evaluation metrics.
+
+2. What is a Confusion Matrix?
+
+A Confusion Matrix is a table that compares actual outcomes with model predictions.
+
+Let's understand using 100 investment transactions.
+
+Suppose:
+
+- 90 transactions are normal.
+- 10 transactions require investigation.
+
+Our model produces the following results:
+
+Actual vs Predicted	Predicted Normal	Predicted Review
+
+Actually Normal	85	5
+Actually Requires Review	2	8
+
+
+Let's understand each term.
+
+True Positive (TP)
+
+The model correctly identifies a transaction that requires investigation.
+
+Example: A suspicious transaction is correctly flagged.
+
+TP = 8.
+
+True Negative (TN)
+
+The model correctly identifies a normal transaction.
+
+Example: A normal investment transaction is classified as normal.
+
+TN = 85.
+
+False Positive (FP)
+
+The model incorrectly flags a normal transaction.
+
+Example: A normal transaction is flagged for investigation.
+
+FP = 5.
+
+False Negative (FN)
+
+The model fails to identify a transaction that requires investigation.
+
+Example: A transaction requiring investigation is incorrectly classified as normal.
+
+FN = 2.
+
+Remember this table
+
+Term	Meaning	Financial example
+
+TP	Correct positive prediction	Correctly flags a transaction for review
+TN	Correct negative prediction	Correctly identifies a normal transaction
+FP	Incorrect positive prediction	Flags a normal transaction
+FN	Incorrect negative prediction	Misses a transaction requiring review
+
+
+Technical Lead interview tip: Be comfortable explaining False Positive and False Negative. These are particularly important in fraud detection, credit risk and financial transaction monitoring.
+
+
+---
+
+Part 2: Five Important Model Evaluation Metrics (15 minutes)
+
+1. Accuracy
+
+Accuracy measures the percentage of total predictions that are correct.
+
+Formula:
+
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+
+Using our example:
+
+Accuracy = (8 + 85) / 100
+
+Accuracy = 93%.
+
+This means 93 out of 100 predictions are correct.
+
+When is accuracy useful?
+
+Accuracy is useful when:
+
+- Classes are reasonably balanced.
+- Different types of prediction errors have similar importance.
+- You want an overall performance measurement.
+
+Limitation
+
+Accuracy can be misleading when the dataset is imbalanced.
+
+For example:
+
+Suppose 10,000 transactions contain:
+
+- 9,900 normal transactions.
+- 100 transactions requiring investigation.
+
+A model that predicts every transaction as normal achieves:
+
+99% accuracy.
+
+But it detects zero transactions requiring investigation.
+
+This is clearly not a useful model.
+
+That is why we need precision and recall.
+
+
+---
+
+2. Precision
+
+Precision measures how many transactions predicted as requiring review actually belong to that category.
+
+Formula:
+
+Precision = TP / (TP + FP)
+
+Using our example:
+
+Precision = 8 / (8 + 5)
+
+Precision = 61.54%.
+
+This means approximately 61.54% of the transactions flagged by the model actually belong to the review category.
+
+Financial services example
+
+Suppose the model flags 100 transactions.
+
+Out of those:
+
+- 80 genuinely require investigation.
+- 20 do not.
+
+Precision = 80 / 100 = 80%.
+
+Higher precision means fewer false alarms among the transactions flagged.
+
+Business importance: Precision is important when investigation teams have limited resources and excessive false alerts create operational workload.
+
+
+---
+
+3. Recall
+
+Recall measures how many actual positive cases the model successfully identifies.
+
+Formula:
+
+Recall = TP / (TP + FN)
+
+Using our example:
+
+Recall = 8 / (8 + 2)
+
+Recall = 80%.
+
+This means the model identifies 80% of the transactions that actually require investigation.
+
+Financial services example
+
+Suppose there are 100 transactions that genuinely require investigation.
+
+Your model identifies 90.
+
+Recall = 90 / 100 = 90%.
+
+The model misses 10 transactions.
+
+Business importance: Recall is particularly important when missing a potentially suspicious transaction carries significant consequences.
+
+
+---
+
+4. F1-Score
+
+F1-Score combines Precision and Recall into a single metric using their harmonic mean.
+
+Formula:
+
+F1 = 2 × (Precision × Recall) / (Precision + Recall)
+
+Using our previous example:
+
+Precision = 61.54%.
+
+Recall = 80%.
+
+F1-Score ≈ 69.57%.
+
+Why do we need F1-Score?
+
+Imagine two models:
+
+Metric	Model A	Model B
+
+Precision	95%	80%
+Recall	40%	85%
+
+
+Model A has excellent precision but misses many positive cases.
+
+Model B has better recall but produces more false positives.
+
+F1-Score helps compare the balance between these metrics.
+
+However, F1 does not account for the actual financial cost of different errors.
+
+In a real financial application, business impact should guide the final selection.
+
+
+---
+
+5. ROC-AUC
+
+ROC-AUC is another frequently asked Machine Learning interview topic.
+
+Let's understand it step by step.
+
+What is ROC?
+
+ROC stands for Receiver Operating Characteristic.
+
+An ROC curve plots:
+
+- True Positive Rate (Recall).
+- False Positive Rate.
+
+False Positive Rate measures the proportion of actual negative cases incorrectly classified as positive.
+
+Formula:
+
+FPR = FP / (FP + TN)
+
+The ROC curve shows how these rates change as the model's classification threshold changes.
+
+What is AUC?
+
+AUC stands for Area Under the Curve.
+
+It measures how well the model ranks positive examples above negative examples across different thresholds.
+
+General interpretation:
+
+ROC-AUC	General interpretation
+
+0.50	No better than random ranking
+0.60–0.70	Weak discrimination
+0.70–0.80	Moderate discrimination
+0.80–0.90	Good discrimination
+0.90–1.00	Very strong discrimination
+
+
+These are rough guidelines, not universal acceptance criteria.
+
+AUC does not tell you whether a particular production threshold is suitable.
+
+For highly imbalanced datasets, Precision-Recall AUC can be more informative than ROC-AUC.
+
+Quick comparison
+
+Metric	What does it measure?
+
+Accuracy	Overall correctness
+Precision	Correctness of positive predictions
+Recall	Coverage of actual positive cases
+F1-Score	Balance between precision and recall
+ROC-AUC	Ability to rank positive cases above negative cases
+
+
+
+---
+
+Part 3: Understanding Classification Thresholds
+
+This is an important concept for Technical Lead interviews.
+
+Most classification models can produce a probability-like score.
+
+For example:
+
+A transaction receives a model score of 0.85.
+
+This means the model estimates an 85% probability of belonging to the positive class, assuming the probability estimates are appropriately calibrated.
+
+A classification threshold determines how that score is converted into a class prediction.
+
+For example:
+
+if probability >= 0.5:
+    prediction = "Requires Review"
+else:
+    prediction = "Normal"
+
+Here, 0.5 is the classification threshold.
+
+But what happens if we change it?
+
+Threshold	Possible effect
+
+0.2	More transactions may be flagged
+0.5	Default-style classification threshold
+0.8	Fewer transactions may be flagged
+
+
+Generally:
+
+- Lowering the threshold tends to increase recall and may reduce precision.
+- Raising the threshold tends to increase precision and may reduce recall.
+
+These are typical trade-offs, not guaranteed outcomes for every dataset.
+
+Financial application example
+
+Suppose you want to identify potentially suspicious transactions.
+
+You may choose a lower threshold to catch more potentially suspicious transactions.
+
+However, this could generate more false positives.
+
+The investigation team may then receive too many alerts.
+
+Therefore, threshold selection should consider:
+
+1. Business risk.
+2. Investigation capacity.
+3. Cost of false positives.
+4. Cost of false negatives.
+5. Regulatory and compliance requirements.
+
+A Technical Lead should work with business stakeholders to establish an appropriate decision threshold.
+
+Important: A model score should not automatically trigger rejection or execution of financial transactions. Business authorization and human approval controls must remain in place where required.
+
+
+---
+
+Part 4: Hands-on Practical Exercise (15 minutes)
+
+Project: Evaluate an ML Model for Investment Transaction Monitoring
+
+Today, we will build a classification model and evaluate its performance using Python.
+
+We will use:
+
+- Python.
+- Pandas.
+- Scikit-learn.
+- Logistic Regression.
+- Confusion Matrix.
+- Precision.
+- Recall.
+- F1-Score.
+- ROC-AUC.
+
+Step 1: Install libraries
+
+pip install pandas numpy scikit-learn
+
+Step 2: Import libraries
+
+import pandas as pd
+import numpy as np
+
+from sklearn.datasets import make_classification
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.pipeline import Pipeline
+
+from sklearn.preprocessing import StandardScaler
+
+from sklearn.linear_model import LogisticRegression
+
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    confusion_matrix,
+    classification_report,
+    roc_auc_score,
+    average_precision_score
+)
+
+Step 3: Generate synthetic financial transaction data
+
+For this exercise, we will generate 2,000 synthetic records.
+
+Only 5% of the transactions will belong to the positive class.
+
+This simulates an imbalanced classification problem.
+
+X, y = make_classification(
+    n_samples=2000,
+    n_features=5,
+    n_informative=3,
+    n_redundant=1,
+    weights=[0.95, 0.05],
+    random_state=42
+)
+
+columns = [
+    "Transaction_Amount",
+    "Beneficiary_History",
+    "Transaction_Frequency",
+    "Portfolio_Activity",
+    "After_Hours"
+]
+
+df = pd.DataFrame(
+    X,
+    columns=columns
+)
+
+df["Requires_Review"] = y
+
+print(df.head())
+
+print(df["Requires_Review"].value_counts())
+
+The generated data is synthetic and its features are numerical proxies, not real financial transaction records.
+
+Step 4: Separate features and labels
+
+X = df.drop(
+    "Requires_Review",
+    axis=1
+)
+
+y = df["Requires_Review"]
+
+Remember:
+
+- X = Input features.
+- y = Expected outcome.
+
+Step 5: Split training, validation and testing data
+
+We will use three separate datasets.
+
+Dataset	Purpose
+
+Training	Train the ML model
+Validation	Compare models and select thresholds
+Testing	Final unbiased evaluation
+
+
+X_train, X_temp, y_train, y_temp = train_test_split(
+    X,
+    y,
+    test_size=0.40,
+    random_state=42,
+    stratify=y
+)
+
+X_validation, X_test, y_validation, y_test = train_test_split(
+    X_temp,
+    y_temp,
+    test_size=0.50,
+    random_state=42,
+    stratify=y_temp
+)
+
+Our data distribution:
+
+- 60% training.
+- 20% validation.
+- 20% testing.
+
+Step 6: Create the ML model
+
+model = Pipeline([
+    ("scaler", StandardScaler()),
+
+    ("classifier", LogisticRegression(
+        class_weight="balanced",
+        max_iter=1000,
+        random_state=42
+    ))
+])
+
+Why use class_weight="balanced"?
+
+Our dataset contains many more normal transactions than transactions requiring review.
+
+Class weighting adjusts the training process to give greater weight to the minority class.
+
+It can help improve minority-class detection, although it does not guarantee better production performance or calibrated probabilities.
+
+Step 7: Train the model
+
+model.fit(
+    X_train,
+    y_train
+)
+
+print("Model training completed")
+
+The model has now learned patterns from the training dataset.
+
+Step 8: Evaluate different thresholds on validation data
+
+validation_probabilities = model.predict_proba(
+    X_validation
+)[:, 1]
+
+thresholds = [0.2, 0.3, 0.4, 0.5, 0.6]
+
+for threshold in thresholds:
+
+    predictions = (
+        validation_probabilities >= threshold
+    ).astype(int)
+
+    print("\nThreshold:", threshold)
+
+    print(
+        "Precision:",
+        precision_score(
+            y_validation,
+            predictions,
+            zero_division=0
+        )
+    )
+
+    print(
+        "Recall:",
+        recall_score(
+            y_validation,
+            predictions,
+            zero_division=0
+        )
+    )
+
+    print(
+        "F1 Score:",
+        f1_score(
+            y_validation,
+            predictions,
+            zero_division=0
+        )
+    )
+
+Observe how precision, recall and F1-score change when the threshold changes.
+
+For this exercise, you can select a threshold based on an illustrative business requirement, such as achieving a minimum recall while keeping the alert volume manageable.
+
+Do not choose a threshold based on test-set performance.
+
+Step 9: Perform final model evaluation
+
+For demonstration, we will use a threshold of 0.5.
+
+In a real project, use the threshold selected through validation and business approval.
+
+test_probabilities = model.predict_proba(
+    X_test
+)[:, 1]
+
+final_predictions = (
+    test_probabilities >= 0.5
+).astype(int)
+
+Calculate the metrics:
+
+print(
+    "Accuracy:",
+    accuracy_score(y_test, final_predictions)
+)
+
+print(
+    "Precision:",
+    precision_score(
+        y_test,
+        final_predictions,
+        zero_division=0
+    )
+)
+
+print(
+    "Recall:",
+    recall_score(
+        y_test,
+        final_predictions,
+        zero_division=0
+    )
+)
+
+print(
+    "F1 Score:",
+    f1_score(
+        y_test,
+        final_predictions,
+        zero_division=0
+    )
+)
+
+print(
+    "ROC-AUC:",
+    roc_auc_score(
+        y_test,
+        test_probabilities
+    )
+)
+
+print(
+    "PR-AUC:",
+    average_precision_score(
+        y_test,
+        test_probabilities
+    )
+)
+
+Step 10: Generate the confusion matrix
+
+matrix = confusion_matrix(
+    y_test,
+    final_predictions
+)
+
+print("Confusion Matrix:")
+
+print(matrix)
+
+You can also generate a detailed classification report:
+
+print(
+    classification_report(
+        y_test,
+        final_predictions,
+        zero_division=0
+    )
+)
+
+What have you learned?
+
+You have now implemented an end-to-end model evaluation workflow.
+
+You can:
+
+1. Generate a dataset.
+2. Separate features and labels.
+3. Split training, validation and testing data.
+4. Train a classification model.
+5. Evaluate precision and recall.
+6. Calculate F1-score.
+7. Calculate ROC-AUC and PR-AUC.
+8. Compare classification thresholds.
+9. Generate a confusion matrix.
+
+This is the type of practical knowledge expected from someone preparing for a Senior AI Engineer or Technical Lead interview.
+
+
+---
+
+Part 5: Five Technical Lead interview questions with answers
+
+Q1. What is the difference between Precision and Recall?
+
+Strong sample answer:
+
+Precision measures how many positive predictions made by the model are actually correct.
+
+Recall measures how many actual positive cases the model successfully identifies.
+
+For example, in financial transaction monitoring, precision tells us how many flagged transactions genuinely require investigation, whereas recall tells us how many transactions requiring investigation were successfully identified.
+
+I would prioritize these metrics based on business risk and operational requirements.
+
+If missing a potentially suspicious transaction is very costly, recall becomes particularly important.
+
+If investigation resources are limited, precision also becomes important.
+
+I would work with business stakeholders to balance both metrics.
+
+Q2. Why is accuracy not sufficient for an imbalanced dataset?
+
+Strong sample answer:
+
+Accuracy can be misleading when one class significantly outnumbers another.
+
+For example, if 99% of financial transactions are normal and 1% require investigation, a model predicting every transaction as normal achieves 99% accuracy.
+
+However, it fails to identify every transaction requiring investigation.
+
+Therefore, I would evaluate precision, recall, F1-score, confusion matrix and Precision-Recall AUC in addition to accuracy.
+
+For highly imbalanced financial datasets, I would pay particular attention to minority-class detection and business error costs.
+
+Q3. What is ROC-AUC?
+
+Strong sample answer:
+
+ROC-AUC measures how well a classification model distinguishes positive examples from negative examples across different classification thresholds.
+
+ROC represents the relationship between True Positive Rate and False Positive Rate.
+
+AUC represents the area under that curve.
+
+An AUC of 0.5 generally indicates random ranking, while higher values indicate stronger ranking ability.
+
+However, ROC-AUC does not establish that a particular classification threshold is appropriate.
+
+For highly imbalanced datasets, I would also examine Precision-Recall AUC.
+
+Q4. How would you improve the performance of an ML model?
+
+Strong sample answer:
+
+I would follow a systematic approach.
+
+First, I would analyze the quality and representativeness of the training data.
+
+Second, I would perform feature engineering and remove irrelevant or leakage-prone features.
+
+Third, I would compare appropriate algorithms and tune their hyperparameters.
+
+Fourth, I would evaluate models using cross-validation or suitable validation strategies.
+
+I would also consider class imbalance, threshold optimization, probability calibration and business-specific performance metrics.
+
+Finally, I would monitor model performance after deployment and investigate data drift and model drift.
+
+I would avoid optimizing only for accuracy because the business objective may require a different balance between precision and recall.
+
+Q5. How do you decide whether an ML model is production-ready?
+
+Strong sample answer:
+
+I would not approve a model based only on its training accuracy or validation score.
+
+I would evaluate several areas.
+
+Model quality:
+
+- Precision.
+- Recall.
+- F1-score.
+- ROC-AUC and PR-AUC where appropriate.
+- Performance across relevant data segments.
+
+Data quality:
+
+- Completeness.
+- Accuracy.
+- Data leakage.
+- Data drift.
+- Training data representativeness.
+
+Architecture and operations:
+
+- Inference latency.
+- Scalability.
+- Availability.
+- Monitoring.
+- Logging.
+- Model versioning.
+- Rollback strategy.
+
+Security and governance:
+
+- Data privacy.
+- IAM permissions.
+- Encryption.
+- Auditability.
+- Responsible AI controls.
+
+For financial applications, I would additionally require business validation, appropriate human oversight and deterministic authorization controls.
+
+Only after meeting the agreed business, technical and governance criteria would I recommend production deployment.
+
+
+---
+
+Part 6: Scenario-based Technical Lead interview question
+
+Scenario: Introducing ML into an existing investment management application
+
+Your organization processes millions of investment transactions daily.
+
+Your current architecture is:
+
+React Application
+                  |
+                  v
+              API Gateway
+                  |
+                  v
+              .NET 8 API
+                  |
+                  v
+             SQL Server
+
+Management wants to introduce Machine Learning to identify transactions that may require investigation.
+
+You have developed two models:
+
+Metric	Model A	Model B
+
+Accuracy	98%	94%
+Precision	90%	80%
+Recall	40%	92%
+F1-Score	55.38%	85.58%
+
+
+Interview question
+
+Which model would you recommend, and how would you integrate it into the existing enterprise architecture?
+
+Strong Technical Lead answer
+
+I would not automatically select Model A just because it has higher accuracy.
+
+Model B has significantly better recall and F1-score.
+
+If the business objective is to identify as many potentially suspicious transactions as possible, Model B may be a better starting candidate.
+
+However, I would first validate the cost of false positives and false negatives with the business and compliance teams.
+
+I would also examine performance across different portfolios and transaction segments.
+
+Proposed architecture
+
+Financial Systems
+                    |
+                    v
+                 AWS S3
+                    |
+                    v
+                AWS Glue
+                    |
+                    v
+          Python Data Processing
+                    |
+                    v
+             Feature Engineering
+                    |
+                    v
+             ML Model Training
+                    |
+                    v
+            Model Evaluation
+                    |
+                    v
+             Approved ML Model
+                    |
+                    v
+          ML Inference Service
+                    |
+                    v
+                .NET 8 API
+                    |
+                    v
+                React UI
+                    |
+                    v
+             Human Investigation
+
+Implementation strategy
+
+1. Model development
+
+Use Python and Scikit-learn to develop and evaluate ML models.
+
+2. Model evaluation
+
+Compare models using precision, recall, F1-score and appropriate business-specific metrics.
+
+3. Model deployment
+
+Deploy the selected model using an appropriate AWS inference architecture.
+
+For example, depending on the workload, use a managed ML endpoint or containerized inference service.
+
+4. .NET integration
+
+Create a dedicated .NET service or API integration layer that sends validated features to the inference service.
+
+5. React integration
+
+Display the prediction score, review category and relevant explanation information to authorized users.
+
+6. Human approval
+
+Allow authorized operations teams to investigate and approve consequential financial actions.
+
+Do not let an ML score directly execute investment orders or bypass existing authorization controls.
+
+7. Monitoring
+
+Use CloudWatch and application-level monitoring for:
+
+- API latency.
+- Prediction volume.
+- Model errors.
+- Infrastructure utilization.
+- Operational costs.
+- Data and model drift.
+
+8. Deployment safety
+
+Introduce model versioning, controlled rollout, rollback and disaster recovery.
+
+Leadership perspective
+
+As Technical Lead, I would introduce this solution incrementally.
+
+I would first deploy it in shadow mode, where the model generates predictions without affecting business processing.
+
+Then I would compare predictions with independently reviewed outcomes.
+
+After successful validation, I would introduce a controlled workflow for human review.
+
+This approach protects existing transaction processing while allowing the organization to adopt ML capabilities safely.
+
+Key interview statement:
+
+"I would treat the ML model as a decision-support component, not as a replacement for deterministic financial business logic, authorization or compliance controls."
+
+
+---
+
+Part 7: Important additional concept – Model Drift
+
+Before finishing, understand one more concept that frequently appears in enterprise AI interviews.
+
+What is Model Drift?
+
+Model Drift refers to a situation where a model's predictive performance deteriorates over time because the environment or underlying relationships have changed.
+
+Imagine that your ML model was trained using historical investment transaction patterns from 2024.
+
+But in 2026:
+
+- Transaction behavior changes.
+- New investment products are introduced.
+- Customer activity changes.
+- Financial market conditions change.
+
+The model may no longer perform as expected.
+
+Two important types
+
+1. Data Drift
+
+The distribution of input data changes.
+
+Example:
+
+Previously, the average transaction amount was ₹5,000.
+
+Now, the average transaction amount is ₹50,000.
+
+The input data distribution has changed.
+
+2. Concept Drift
+
+The relationship between input features and the target outcome changes.
+
+Example:
+
+A transaction pattern that historically indicated suspicious activity may no longer have the same relationship with the investigation outcome.
+
+How would you handle model drift?
+
+As a Technical Lead, I would establish:
+
+1. Input data distribution monitoring.
+2. Prediction distribution monitoring.
+3. Actual outcome tracking.
+4. Periodic model performance evaluation.
+5. Retraining when justified.
+6. Model versioning.
+7. Controlled deployment.
+8. Rollback capability.
+
+An important distinction:
+
+Data drift can often be monitored immediately, but measuring actual model performance requires reliable ground-truth outcomes, which may arrive later.
+
+
+---
+
+Part 8: Knowledge assessment
+
+Try answering these 10 questions without looking at the lesson.
+
+No.	Question	Correct answer
+
+1	What is model evaluation?	Measuring how well a trained model performs.
+2	What does accuracy measure?	Percentage of correct predictions.
+3	What does precision measure?	Correctness of positive predictions.
+4	What does recall measure?	Percentage of actual positive cases identified.
+5	What is F1-score?	Harmonic mean of precision and recall.
+6	What does ROC-AUC measure?	Ranking/discrimination ability across classification thresholds.
+7	What is a false positive?	A normal transaction incorrectly flagged for review.
+8	What is a false negative?	A transaction requiring review that the model misses.
+9	What is model drift?	Deterioration or changes in model behavior as data or relationships change.
+10	What is the purpose of a validation dataset?	Comparing models and selecting settings before final testing.
+
+
+Bonus interview challenge
+
+The interviewer asks:
+
+"Your ML model has 99% accuracy but only 20% recall. Would you deploy it?"
+
+Strong answer:
+
+Not immediately.
+
+A recall of 20% means the model identifies only 20% of actual positive cases.
+
+In a financial transaction monitoring system, this may be unacceptable if the business objective is to detect potentially suspicious transactions.
+
+I would investigate:
+
+- Dataset imbalance.
+- Feature quality.
+- Model selection.
+- Classification threshold.
+- Training data representativeness.
+- False negative business impact.
+
+I would evaluate alternative models and appropriate threshold settings using validation data.
+
+I would also validate the final model using an untouched test dataset and obtain business approval before production deployment.
+
+
+---
+
+Your AI learning progress
+
+Day	Topic	Status
+
+Day 1	Introduction to Artificial Intelligence	Completed
+Day 2	Python Fundamentals	Completed
+Day 3	NumPy and Pandas	Completed
+Day 4	FastAPI and .NET Integration	Completed
+Day 5	Machine Learning Fundamentals	Completed
+Day 6	Decision Trees, Random Forest and K-Means	Completed
+Day 7	Model Evaluation and Performance Metrics	Today's lesson
+Day 8	Generative AI Fundamentals	Next
+Day 9	Large Language Models and Transformers	Upcoming
+Day 10	Prompt Engineering	Upcoming
+
+
+Upcoming learning modules
+
+After completing traditional Machine Learning fundamentals, we will transition into Generative AI.
+
+The next major topics will include:
+
+1. Generative AI vs Traditional AI.
+2. Large Language Models (LLMs).
+3. Transformer architecture.
+4. Tokens and context windows.
+5. Prompt engineering.
+6. Embeddings.
+7. Vector databases.
+8. Retrieval-Augmented Generation (RAG).
+9. Amazon Bedrock.
+10. .NET and AWS GenAI integration.
+11. AI agents.
+12. Enterprise AI architecture, security and governance.
+
+
+---
+
+Today's final revision – Five things to remember
+
+1. Accuracy alone cannot determine whether an ML model is good.
+2. Precision measures the correctness of positive predictions.
+3. Recall measures how many actual positive cases are identified.
+4. F1-score balances precision and recall.
+5. Model drift must be monitored after production deployment.
+
+Your Technical Lead career takeaway
+
+With your existing experience in C#, .NET 8, microservices, AWS Lambda, API Gateway, SQL Server and financial services, you already have a strong foundation for enterprise AI architecture.
+
+Your next step is to understand how AI models can be integrated into these existing systems safely and efficiently.
+
+A strong Technical Lead does not just understand how to train a model. They understand how to evaluate it, deploy it, monitor it, secure it and ensure that it delivers measurable business value.
+
+
+---
+
+Next Lesson – Day 8
+
+Generative AI Fundamentals – Understanding GenAI, LLMs and Traditional Machine Learning
+
+This will be our transition from traditional AI and Machine Learning into Generative AI.
+
+You will learn:
+
+- What is Generative AI?
+- How is Generative AI different from traditional AI?
+- What is an LLM?
+- How does ChatGPT generate answers?
+- What are tokens?
+- What is a context window?
+- What are hallucinations?
+- What are foundation models?
+- What is the difference between training and inference?
+- How can Generative AI help investment management applications?
+
+Important interview question we will prepare for:
+
+"Your organization already has traditional Machine Learning solutions. Why should it introduce Generative AI, and what business problems would you solve using LLMs?"
+
+This is an important foundation for your transition into Technical Lead – AI & GenAI roles.

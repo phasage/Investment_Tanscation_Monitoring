@@ -1,0 +1,38 @@
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\genai\investment_prompt.py:166: in build_few_shot_prompt
+    return FEW_SHOT_EXAMPLES.format(email_text=email_text.strip())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: '\n    "portfolio_id"     '
+____________ TestFewShotPrompt.test_contains_buy_and_sell_examples ____________
+tests\unit\test_day10_prompt_engineering.py:80: in test_contains_buy_and_sell_examples
+    prompt = build_few_shot_prompt("Buy 50 ABC for P1001.")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\genai\investment_prompt.py:166: in build_few_shot_prompt
+    return FEW_SHOT_EXAMPLES.format(email_text=email_text.strip())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: '\n    "portfolio_id"     '
+============================== warnings summary ===============================
+tests/unit/test_day10_prompt_engineering.py: 10 warnings
+  D:\Amol\AI Projects\Investment_Tanscation_Monitoring\src\genai\investment_prompt.py:223: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    extracted_at: str = field(default_factory=lambda: datetime.utcnow().isoformat() + "Z")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/unit/test_day8_genai_fundamentals.py::TestOrderValidation::test_valid_buy_order_passes
+FAILED tests/unit/test_day8_genai_fundamentals.py::TestOrderValidation::test_valid_sell_order_passes
+FAILED tests/unit/test_day8_genai_fundamentals.py::TestOrderValidation::test_invalid_action_raises
+FAILED tests/unit/test_day8_genai_fundamentals.py::TestOrderValidation::test_zero_quantity_raises
+FAILED tests/unit/test_day8_genai_fundamentals.py::TestOrderValidation::test_negative_quantity_raises
+FAILED tests/unit/test_day8_genai_fundamentals.py::TestOrderValidation::test_missing_portfolio_id_raises
+FAILED tests/unit/test_day8_genai_fundamentals.py::TestOrderValidation::test_missing_security_name_raises
+FAILED tests/unit/test_day8_genai_fundamentals.py::TestOrderValidation::test_non_integer_quantity_raises
+FAILED tests/unit/test_day8_genai_fundamentals.py::TestEndToEnd::test_complete_scenario_validates_successfully
+FAILED tests/unit/test_day8_genai_fundamentals.py::TestEndToEnd::test_missing_quantity_fails_validation
+FAILED tests/unit/test_day8_genai_fundamentals.py::TestEndToEnd::test_ambiguous_action_fails_validation
+FAILED tests/unit/test_day10_prompt_engineering.py::TestFewShotPrompt::test_contains_email_text
+FAILED tests/unit/test_day10_prompt_engineering.py::TestFewShotPrompt::test_contains_multiple_examples
+FAILED tests/unit/test_day10_prompt_engineering.py::TestFewShotPrompt::test_contains_buy_and_sell_examples
+================= 14 failed, 92 passed, 10 warnings in 7.87s ==================
+
+
+Exit code: 1

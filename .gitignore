@@ -1,0 +1,85 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Data (never commit raw/sensitive data)
+data/raw/
+data/processed/
+data/external/
+data/features/
+*.csv
+*.parquet
+*.xlsx
+*.json.gz
+
+# Models (track via MLflow/DVC instead)
+models/trained/
+models/artifacts/
+*.pkl
+*.joblib
+*.pt
+*.pth
+*.onnx
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Logs
+logs/
+*.log
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+coverage.xml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Reports (generated)
+reports/figures/*.png
+reports/figures/*.pdf
+reports/metrics/*.json
+
+# Docker
+docker-compose.override.yml
+
+# Temp test output and runner scripts
+test_results*.txt
+test_out*.txt
+test_err*.txt
+test_day*.txt
+run_tests.py
+run_lesson*.py
+lesson*_output*.txt

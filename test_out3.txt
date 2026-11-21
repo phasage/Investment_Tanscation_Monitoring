@@ -1,0 +1,30 @@
+ses PASSED [ 77%]
+tests/unit/test_day10_prompt_engineering.py::TestLLMResponseValidation::test_null_quantity_allowed PASSED [ 78%]
+tests/unit/test_day10_prompt_engineering.py::TestLLMResponseValidation::test_unknown_action_adds_to_missing_fields PASSED [ 79%]
+tests/unit/test_day10_prompt_engineering.py::TestLLMResponseValidation::test_invalid_json_raises PASSED [ 80%]
+tests/unit/test_day10_prompt_engineering.py::TestLLMResponseValidation::test_invalid_transaction_type_raises PASSED [ 81%]
+tests/unit/test_day10_prompt_engineering.py::TestLLMResponseValidation::test_invalid_confidence_raises PASSED [ 82%]
+tests/unit/test_day10_prompt_engineering.py::TestLLMResponseValidation::test_negative_quantity_raises PASSED [ 83%]
+tests/unit/test_day10_prompt_engineering.py::TestLLMResponseValidation::test_zero_quantity_raises PASSED [ 83%]
+tests/unit/test_day10_prompt_engineering.py::TestLLMResponseValidation::test_string_quantity_raises PASSED [ 84%]
+tests/unit/test_day10_prompt_engineering.py::TestLLMResponseValidation::test_missing_required_fields_raises PASSED [ 85%]
+tests/unit/test_day10_prompt_engineering.py::TestExtractedOrderMetadata::test_prompt_version_set PASSED [ 86%]
+tests/unit/test_day10_prompt_engineering.py::TestExtractedOrderMetadata::test_extracted_at_is_set PASSED [ 87%]
+tests/unit/test_day10_prompt_engineering.py::TestGenerationParameters::test_temperature_low_for_financial_extraction PASSED [ 88%]
+tests/unit/test_day10_prompt_engineering.py::TestGenerationParameters::test_max_tokens_sufficient_for_schema PASSED [ 89%]
+tests/unit/test_day10_prompt_engineering.py::TestEmailScenarios::test_scenario_has_email_and_response[complete_buy] PASSED [ 90%]
+tests/unit/test_day10_prompt_engineering.py::TestEmailScenarios::test_scenario_has_email_and_response[missing_quantity] PASSED [ 91%]
+tests/unit/test_day10_prompt_engineering.py::TestEmailScenarios::test_scenario_has_email_and_response[ambiguous_action] PASSED [ 92%]
+tests/unit/test_day10_prompt_engineering.py::TestEmailScenarios::test_scenario_has_email_and_response[sell_order] PASSED [ 93%]
+tests/unit/test_day10_prompt_engineering.py::TestEmailScenarios::test_scenario_has_email_and_response[injection_attempt] PASSED [ 94%]
+tests/unit/test_day10_prompt_engineering.py::TestEmailScenarios::test_complete_buy_scenario_validates PASSED [ 95%]
+tests/unit/test_day10_prompt_engineering.py::TestEmailScenarios::test_missing_quantity_scenario_has_null_quantity PASSED [ 96%]
+tests/unit/test_day10_prompt_engineering.py::TestEmailScenarios::test_ambiguous_action_scenario_is_unknown PASSED [ 97%]
+tests/unit/test_day10_prompt_engineering.py::TestEmailScenarios::test_sell_order_scenario PASSED [ 98%]
+tests/unit/test_day10_prompt_engineering.py::TestEmailScenarios::test_injection_attempt_has_no_response PASSED [ 99%]
+tests/unit/test_day10_prompt_engineering.py::TestEmailScenarios::test_injection_attempt_email_is_blocked PASSED [100%]
+
+============================= 106 passed in 9.35s =============================
+
+
+Exit code: 0

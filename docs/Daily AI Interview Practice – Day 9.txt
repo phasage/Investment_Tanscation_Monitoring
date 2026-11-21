@@ -1,0 +1,1037 @@
+### Daily AI Interview Practice – Day 9
+
+### Large Language Models (LLMs) and Transformer Architecture – Deep Dive
+
+Day 9Technical Lead preparation60-minute lesson
+
+Target position: Technical Lead – AI & Generative AI
+
+Today's learning objective: Understand how modern LLMs work internally, how Transformers process language, and how to explain this architecture confidently in a Senior Engineer or Technical Lead interview.
+
+You already have 16+ years of experience with C#, .NET, AWS, microservices, APIs and financial systems. We will use those familiar technologies to understand AI concepts.
+
+### 1\. Today's learning schedule
+
+| Topic                                     | Time   |
+| ----------------------------------------- | ------ |
+| Recap of Day 8                            | 5 min  |
+| Transformer architecture                  | 15 min |
+| Attention mechanism and LLM processing    | 10 min |
+| Practical Python exercise                 | 15 min |
+| Five technical interview questions        | 10 min |
+| Architecture scenario and knowledge check | 5 min  |
+| Total                                     | 60 min |
+
+### Part 1 – Recap: What did we learn on Day 8?
+
+Before going deeper, let's revise five concepts.
+
+| Concept       | Meaning                                         |
+| ------------- | ----------------------------------------------- |
+| Generative AI | AI that generates new content                   |
+| LLM           | Large Language Model                            |
+| Token         | Unit of text processed by an LLM                |
+| Inference     | Using a trained model to generate a response    |
+| Hallucination | Generating unsupported or incorrect information |
+
+Remember this example from your Apollo project:
+
+A portfolio manager sends an email:
+
+"Please buy 500 shares of ABC Limited for portfolio P1001."
+
+An LLM can understand the email and extract:
+
+```json
+{
+  "portfolio_id": "P1001",
+  "action": "BUY",
+  "security": "ABC Limited",
+  "quantity": 500
+}
+```
+
+But how does the LLM understand the sentence?
+
+How does it identify relationships between words?
+
+How does it generate the JSON?
+
+The answer starts with the Transformer architecture.
+
+### Part 2 – What is Transformer Architecture?
+
+### 2.1 What is a Transformer?
+
+A Transformer is a deep learning architecture designed to process sequences of information, especially language.
+
+It was introduced in the 2017 research paper:
+
+Attention Is All You Need.
+
+It introduced the attention-based approach that became fundamental to modern LLMs.
+
+The Transformer architecture is the foundation of many modern language models.
+
+Examples include GPT-style models, BERT and T5.
+
+Important interview definition:
+
+"A Transformer is a neural network architecture that uses attention mechanisms to understand relationships between different parts of input data and process sequences efficiently."
+
+### 2.2 Understand the architecture visually
+
+![Understanding Transformers architecture with Pytorch code | by Ashish bisht | Medium](https://images.openai.com/static-rsc-4/XQzvRR7LzbVNPDAe7feHj21xP0vtMyTo9BlrO2_OWyQ5glXbghkM5njGoLdgQH2U1NCpdU55t6F3N8H6KT2w4-fzOjz_IJKEHzsqOrXtSQlxRAVE0ecUCCBF2ubjo8A66SzBkSQD9ykfGQ3986kMqFJVKSuTsVhdZ_ocj2JITQ3juIRpRXhDjxHbNuSFybOe?purpose=fullsize)
+
+A traditional Transformer architecture has two main components:
+
+* Encoder.
+
+* Decoder.
+
+### What is an Encoder?
+
+An Encoder processes input information and creates contextual representations.
+
+Think of it as a component that reads and understands the input.
+
+Example:
+
+Input:
+
+"Portfolio manager requested a BUY order."
+
+The encoder processes the words and their relationships.
+
+### What is a Decoder?
+
+A Decoder generates output based on the available context.
+
+Example:
+
+Input instruction:
+
+"Portfolio manager requested a BUY order."
+
+Generated output:
+
+```json
+{
+  "action": "BUY"
+}
+```
+
+### Encoder vs Decoder
+
+| Encoder                            | Decoder                                      |
+| ---------------------------------- | -------------------------------------------- |
+| Processes input context            | Generates output                             |
+| Often uses bidirectional attention | Autoregressive decoders use causal attention |
+| Useful for understanding tasks     | Useful for text generation                   |
+| Example: BERT                      | Example: GPT-style models                    |
+
+There are also encoder-decoder models such as T5.
+
+Important distinction: Modern GPT-style LLMs are generally decoder-only Transformers. They do not use the complete original encoder-decoder architecture.
+
+This is a common interview question.
+
+### 2.3 How does an LLM process a sentence?
+
+Consider this sentence:
+
+"Buy 500 shares of ABC Limited."
+
+A simplified processing pipeline is:
+
+Step 1 – Input Text
+
+"Buy 500 shares of ABC Limited"
+
+Step 2 – Tokenization
+
+Text is converted into token IDs.
+
+Step 3 – Embedding
+
+Token IDs are converted into numerical vectors.
+
+Step 4 – Positional Information
+
+Information about token positions is incorporated.
+
+Step 5 – Transformer Layers
+
+Attention and neural network layers process the information.
+
+Step 6 – Output Probabilities
+
+The model calculates possible next tokens.
+
+Step 7 – Generated Response
+
+The model generates text or structured output.
+
+Let's understand the important components individually.
+
+### Part 3 – Five important components of Transformer Architecture
+
+### 3.1 Tokenization
+
+Tokenization means breaking input text into smaller units called tokens.
+
+Example:
+
+```text
+Input:
+I want to buy shares.
+```
+
+A simplified illustrative tokenization:
+
+```text
+["I", "want", "to", "buy", "shares", "."]
+```
+
+Actual tokenizers may divide words into smaller subword units.
+
+Each token is converted into a numerical token ID.
+
+For example:
+
+| Token  | Illustrative token ID |
+| ------ | --------------------- |
+| I      | 101                   |
+| want   | 205                   |
+| to     | 305                   |
+| buy    | 410                   |
+| shares | 520                   |
+
+These IDs are illustrative, not actual GPT tokenizer IDs.
+
+Interview point: Tokenization converts text into a numerical representation that the model can process.
+
+### 3.2 Embeddings
+
+Computers work with numerical values, not human-language meaning directly.
+
+An embedding converts a token ID into a vector of numbers.
+
+Example:
+
+```text
+Token: BUY
+
+Embedding:
+[0.25, 0.87, 0.42, 0.91]
+```
+
+Another token:
+
+```text
+Token: SELL
+
+Embedding:
+[0.28, 0.81, 0.45, 0.88]
+```
+
+These numbers are illustrative.
+
+The model learns its embedding parameters during training.
+
+The purpose is to represent tokens numerically so the neural network can process them.
+
+Think of embeddings as numerical representations that allow the model to learn patterns and relationships.
+
+![How Machines Understand Language: A Hands-On Overview of Text Embeddings | by Rayan Yassminh | Medium](https://images.openai.com/static-rsc-4/rQTBGeXj6BIk3NHm1U1Fe4fkCHhJussWoPA38PYlsBkIEqHh41mpghBYFESBLZHWHBmotMGx4rRvEhl1Va2WDRooKIKhc1ZEQY1R7N4QG8snPQomF359F3v7U2FmMtBUt52jHi8Sl9bnB68meOrdhAiHd3K-ZG6c2lPwz-Xb-oM-JuCT_h5AawKoQ-DHhVu9?purpose=fullsize)
+
+We will study embeddings in much more detail on Day 12, including semantic similarity and their use in enterprise search.
+
+### 3.3 Positional Encoding
+
+Here is an important problem.
+
+Consider these two sentences:
+
+* "The manager approved the order."
+
+* "The order approved the manager."
+
+They contain similar words, but their meanings are different.
+
+The order of words matters.
+
+Self-attention by itself does not inherently encode the original sequence order.
+
+Therefore, Transformers incorporate positional information.
+
+This is called positional encoding or positional information, depending on the implementation.
+
+Some approaches include:
+
+* Sinusoidal positional encoding.
+
+* Learned positional embeddings.
+
+* Rotary Positional Embeddings (RoPE).
+
+Different modern models use different approaches.
+
+Simple definition:
+
+"Positional encoding helps the Transformer understand where each token appears in the sequence."
+
+### 3.4 Self-Attention – The most important concept today
+
+This is one of the most important LLM interview topics.
+
+### What is Attention?
+
+Attention is a mechanism that helps a model determine which other tokens are relevant when processing a particular token.
+
+Consider:
+
+"The portfolio manager requested an order. He wants to buy 500 shares."
+
+The model needs to connect "He" with "portfolio manager".
+
+Attention helps the model use relevant contextual relationships.
+
+### What is Self-Attention?
+
+Self-Attention allows each token in a sequence to consider other tokens within the same sequence when constructing its representation.
+
+Let's understand it using a simple example.
+
+Input:
+
+```text
+The portfolio manager requested BUY 500 shares.
+```
+
+The model processes relationships between words.
+
+![What is the Self-Attention Mechanism in Transformers? | by Param.dev | Medium](https://images.openai.com/static-rsc-4/PxwMX96yIsKKBZrO5hVpZvVrNJ9IVVeVHY4T8XHPmhVueRxNuI9XHqIWQimODmNmuyGkfV4EMv0fPkBlxVPbhbtXD2frI202y-8Jmx74OLDo8Yg0RDnKtz9UqQFZC1m0XBMhkLaM4eFHL-JY7693xNedGorBvwyp3XyJJLvq1XN0W4f5_LMqogBtF5uv8Rls?purpose=fullsize)
+
+For example:
+
+* "BUY" is related to "shares".
+
+* "500" is related to the quantity.
+
+* "manager" is related to the person providing the instruction.
+
+These are simplified semantic examples, not literal fixed rules learned by the model.
+
+### Three important terms: Query, Key and Value
+
+Self-attention uses three mathematical representations:
+
+* Query (Q).
+
+* Key (K).
+
+* Value (V).
+
+Imagine a library.
+
+* Query: What information am I looking for?
+
+* Key: What information does each available item represent?
+
+* Value: What information does each item contain?
+
+The model compares queries with keys to calculate relevance scores.
+
+It then uses those scores to combine values.
+
+The standard scaled dot-product attention formula is:
+
+Attention(Q,K,V)=
+Softmax\\left(\\frac{QK^T}{\\sqrt{d_k}}\\right)V
+
+Don't worry about memorizing every mathematical detail immediately.
+
+Understand the flow:
+
+* Generate Query, Key and Value.
+
+* Compare Query with Keys.
+
+* Calculate attention scores.
+
+* Apply Softmax to obtain weights.
+
+* Use those weights to combine Values.
+
+### What is Softmax?
+
+Softmax converts a collection of numerical scores into values that sum to 1.
+
+Example:
+
+Input scores:
+
+```text
+[2, 1, 0]
+```
+
+Illustrative Softmax output:
+
+```text
+[0.67, 0.24, 0.09]
+```
+
+These values represent relative weights.
+
+### 3.5 Multi-Head Attention
+
+Imagine reading a financial email.
+
+You need to understand:
+
+* Who sent the instruction?
+
+* What is the transaction action?
+
+* What is the quantity?
+
+* Which portfolio is involved?
+
+Different attention heads can learn different patterns and relationships.
+
+Multi-Head Attention allows the model to perform several attention operations in parallel, then combine their results.
+
+![Understanding Attention Mechanisms in LLMs](https://images.openai.com/static-rsc-4/em0a_zQ69DSxL_q75ogXkq7pUdD_5Sa5C3tn66lf7XUXQ-oD0VGFpiWVaHANhiESmSRyYZLhFIjwhS1Ca_DkTCEWcz-fcAN5uRd8d6kM1MbPKJZw-r7iFWGFhdf1PD6d-Mq5p0nmSosB3yA3DIrxkGAcJwpwMoEIlUWtywBW6puBfOG9RGQo8GDz8bxS9jTQ?purpose=fullsize)
+
+Interview definition:
+
+"Multi-Head Attention enables a Transformer to capture different relationships in the input through multiple attention heads operating in parallel."
+
+### Part 4 – What happens inside a Transformer block?
+
+In addition to attention, a Transformer block normally contains:
+
+1\. Attention layer
+
+Helps combine information from relevant tokens.
+
+2\. Feed-Forward Neural Network (FFN)
+
+Processes each token's representation through learned neural network layers.
+
+3\. Residual Connections
+
+Help information flow through deep networks by adding the layer input to its output.
+
+4\. Layer Normalization
+
+Helps stabilize the numerical values during training and processing.
+
+These components are repeated in multiple Transformer layers.
+
+![Generative AI 101: Explanation, Use Cases, Impact](https://images.openai.com/static-rsc-4/fqohXaR9IJvuW-iIq3gr-6VLMFy0cYTdcWx-FEmjLllIc4ae9xnjvgmgUjRgtbo_JlAGFB0ZGM2furmYHNipZoD_x9xqu2u_UnZ_T6QCKAizyvX6dBsmIr-XlyGibuWpf1_R2IOYg8xcFfe22cNU1cynli6b5ObYq0nvMHSIKBzgEarSZqOfaKvlm5-ehqK1?purpose=fullsize)
+
+Think of this as a processing pipeline containing multiple neural network stages.
+
+A model's depth and width, training data, architecture and other design choices all influence its capabilities.
+
+### What is Causal Attention?
+
+This is particularly important for GPT-style models.
+
+Suppose the input is:
+
+```text
+I want to buy shares
+```
+
+When predicting the next token, a decoder-only model must not use future tokens that have not yet been generated.
+
+Causal masking prevents a position from attending to later positions.
+
+For example:
+
+| Token position | Can attend to            |
+| -------------- | ------------------------ |
+| I              | I                        |
+| want           | I, want                  |
+| to             | I, want, to              |
+| buy            | I, want, to, buy         |
+| shares         | I, want, to, buy, shares |
+
+This ensures autoregressive generation: the model generates one token after another using preceding context.
+
+### What is KV Cache?
+
+KV Cache means Key-Value Cache.
+
+During autoregressive generation, the model can reuse previously calculated Keys and Values rather than recomputing them for all earlier tokens at every step.
+
+This helps improve inference efficiency and reduce repeated computation.
+
+Technical Lead interview point: KV caching is one of the important optimizations for serving LLMs efficiently, especially when generating long responses.
+
+### Part 5 – Hands-on Python exercise: Understand Self-Attention (15 minutes)
+
+Practical coding exercise
+
+Now let's implement a simplified Self-Attention mechanism using Python.
+
+This exercise will help you understand what happens inside an LLM.
+
+You don't need TensorFlow or PyTorch today.
+
+We will use NumPy.
+
+### Step 1. Install NumPy
+
+```bash
+pip install numpy
+```
+
+### Step 2. Create the Python file
+
+Filename:
+
+`transformer_attention_demo.py`
+
+### Step 3. Define sample tokens and numerical representations
+
+```python
+import numpy as np
+
+tokens = ["BUY", "500", "ABC", "P1001"]
+
+# Educational toy embeddings.
+# These are not real LLM embeddings.
+
+X = np.array([
+    [1.0, 0.0],   # BUY
+    [0.0, 1.0],   # 500
+    [1.0, 1.0],   # ABC
+    [0.5, 0.5]    # P1001
+])
+
+print("Tokens:")
+print(tokens)
+
+print("\nInput vectors:")
+print(X)
+```
+
+Here, we represent four tokens using two-dimensional vectors.
+
+Real LLMs use much larger learned representations.
+
+### Step 4. Create Query, Key and Value matrices
+
+```python
+W_Q = np.array([
+    [1.0, 0.0],
+    [0.5, 1.0]
+])
+
+W_K = np.array([
+    [1.0, 0.5],
+    [0.0, 1.0]
+])
+
+W_V = np.array([
+    [1.0, 0.0],
+    [0.0, 1.0]
+])
+
+Q = X @ W_Q
+K = X @ W_K
+V = X @ W_V
+
+print("Query:")
+print(Q)
+
+print("Key:")
+print(K)
+
+print("Value:")
+print(V)
+```
+
+Here:
+
+* Q represents queries.
+
+* K represents keys.
+
+* V represents values.
+
+The weight matrices are fixed for this demonstration. In a trained Transformer, these projection weights are learned parameters.
+
+### Step 5. Calculate attention scores
+
+```python
+scores = Q @ K.T
+
+scores = scores / np.sqrt(2)
+
+print("Attention Scores:")
+print(scores)
+```
+
+This calculates the similarity scores between queries and keys.
+
+### Step 6. Apply causal masking
+
+For a decoder-only language model, future tokens must not be visible to the current position.
+
+```python
+scores[np.triu_indices(len(tokens), k=1)] = -1e9
+```
+
+This prevents each token position from attending to future positions.
+
+### Step 7. Calculate Softmax
+
+```python
+exp_scores = np.exp(
+    scores - np.max(scores, axis=1, keepdims=True)
+)
+
+attention_weights = (
+    exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
+)
+
+print("Attention Weights:")
+print(attention_weights)
+```
+
+The attention weights for each row sum to approximately 1.
+
+### Step 8. Generate the attention output
+
+```python
+attention_output = attention_weights @ V
+
+print("Final Attention Output:")
+print(attention_output)
+```
+
+Congratulations! You have implemented a simplified scaled dot-product Self-Attention mechanism.
+
+### Understand the complete Python flow
+
+Input vectors (X)
+
+Query
+
+Q
+
+Key
+
+K
+
+Value
+
+V
+
+Calculate Q × K transpose
+
+Scale scores and apply causal mask
+
+Softmax – Attention Weights
+
+Attention Weights × V
+
+Context-aware output vectors
+
+### Practical challenges
+
+Try these three changes yourself:
+
+* Change `"BUY"` to `"SELL"` and observe what changes in the toy inputs.
+
+* Change the quantity vector from `[0.0, 1.0]` to `[0.0, 2.0]`.
+
+* Remove the causal mask and observe how attention weights change.
+
+Remember: This is a mathematical demonstration of attention, not a real trained language model. It does not demonstrate how a model understands financial instructions by itself.
+
+### Part 6 – Five Technical Lead interview questions (10 minutes)
+
+These questions are particularly important for interviews involving LLM architecture and Generative AI engineering.
+
+### Q1. What is Transformer Architecture, and why is it important in Generative AI?
+
+Strong sample answer:
+
+Transformer is a deep learning architecture introduced in the research paper "Attention Is All You Need".
+
+It uses attention mechanisms to capture relationships between tokens in an input sequence.
+
+Its major components include token embeddings, positional information, attention layers, feed-forward networks, residual connections and normalization.
+
+Modern LLMs such as GPT-style models use decoder-only Transformer architectures.
+
+Transformers are important because they enable powerful language processing and generation, and their architecture supports efficient parallel computation during training.
+
+In enterprise applications, understanding Transformer architecture helps with model selection, context-window planning, inference optimization and performance troubleshooting.
+
+### Q2. What is the difference between Encoder and Decoder?
+
+Strong sample answer:
+
+An Encoder processes input information and creates contextual representations.
+
+A Decoder generates output based on available context.
+
+Encoder-only architectures, such as BERT, are commonly used for understanding-oriented tasks.
+
+Decoder-only architectures, such as GPT-style models, are commonly used for autoregressive text generation.
+
+Encoder-decoder architectures, such as T5, combine both approaches.
+
+The architecture choice depends on the business use case.
+
+For example, for conversational text generation, I would consider a suitable decoder-only foundation model, whereas a specialized classification task might use an encoder-based model.
+
+### Q3. Explain Self-Attention and Multi-Head Attention.
+
+Strong sample answer:
+
+Self-Attention allows each token to consider other tokens in the same input sequence when building its contextual representation.
+
+It uses three learned projections: Query, Key and Value.
+
+The Query-Key comparison produces attention scores, which are normalized using Softmax. These scores determine how values are combined.
+
+Multi-Head Attention performs multiple attention calculations in parallel and combines their results.
+
+This enables the model to capture different relationships in the input.
+
+For example, in financial email processing, different attention heads may learn different contextual patterns involving quantities, securities and transaction instructions.
+
+However, attention weights should not automatically be interpreted as reliable explanations of the model's decisions.
+
+### Q4. What is the difference between Tokenization and Embedding?
+
+Strong sample answer:
+
+Tokenization converts input text into tokens and corresponding token IDs.
+
+Embedding converts token IDs into numerical vector representations that can be processed by a neural network.
+
+For example, a financial instruction such as "BUY 500 shares" is first tokenized and then mapped into learned numerical representations.
+
+The model processes these representations through its Transformer layers.
+
+Tokenization handles the conversion of text into discrete units, whereas embeddings provide the numerical representations used for learning contextual patterns.
+
+### Q5. How would you optimize LLM inference performance in an enterprise application?
+
+Strong sample answer:
+
+I would approach inference optimization from multiple dimensions.
+
+First, I would select an appropriately sized model based on accuracy and latency requirements.
+
+Second, I would optimize prompts and limit unnecessary input and output tokens.
+
+Third, I would evaluate streaming responses, batching where supported, and KV caching.
+
+Fourth, I would implement asynchronous processing for long-running workloads and appropriate timeout, retry and rate-limit handling.
+
+I would also measure:
+
+* Average and percentile latency.
+
+* Input and output token consumption.
+
+* Throughput.
+
+* Model error rates.
+
+* Cost per request.
+
+* Output quality.
+
+For financial applications, I would not sacrifice correctness, privacy or business controls simply to improve speed.
+
+### Part 7 – Scenario-based Technical Lead question
+
+Architecture and leadership round
+
+### Scenario: Your company wants to process 50,000 portfolio manager emails daily using Generative AI.
+
+The existing architecture is:
+
+* Microsoft Graph API for email retrieval.
+
+* Python AWS Lambda for processing.
+
+* S3 for document storage.
+
+* .NET 8 REST APIs.
+
+* SQL Server for financial information.
+
+* React for operations users.
+
+Management wants to use an LLM to extract investment instructions.
+
+Interview question:
+
+How would you design a scalable Transformer/LLM-based solution capable of processing 50,000 emails daily while maintaining security, reliability, cost efficiency and financial accuracy?
+
+### Strong sample answer
+
+I would design an event-driven, asynchronous architecture that introduces Generative AI as an intelligence layer while preserving existing deterministic transaction-processing services.
+
+### Proposed architecture
+
+Microsoft Graph API
+
+Email ingestion
+
+Amazon SQS / EventBridge
+
+Decoupled processing and workload distribution
+
+AWS Lambda – Python
+
+Parsing, document handling and prompt construction
+
+Amazon Bedrock
+
+Foundation model inference
+
+Schema and business validation
+
+Structured output and trusted reference checks
+
+.NET 8 API + SQL Server
+
+Existing enterprise business logic
+
+React UI
+
+Human review and authorized approval
+
+### My technical design decisions
+
+1\. Scalability
+
+I would use queue-based processing to decouple email ingestion from model inference.
+
+Lambda concurrency, queue visibility timeout, retry policies and model service quotas would be configured based on measured throughput.
+
+The daily total of 50,000 emails is not enough to determine capacity by itself. I would also establish peak arrival rates, acceptable processing latency and document sizes.
+
+2\. Model selection
+
+I would benchmark suitable Amazon Bedrock foundation models against representative financial emails.
+
+The evaluation would include extraction accuracy, latency, throughput, cost and structured output reliability.
+
+3\. Transformer and token optimization
+
+I would control input length, remove unnecessary content, process attachments appropriately and use suitable token limits.
+
+I would consider KV caching and other serving optimizations where supported by the selected model and service.
+
+4\. Reliability
+
+I would implement:
+
+* Idempotent processing.
+
+* Retry with backoff.
+
+* Dead-letter queues.
+
+* Duplicate email detection.
+
+* Correlation IDs.
+
+* Graceful failure handling.
+
+5\. Security
+
+I would implement least-privilege IAM, encryption, sensitive data protection and secure secret management.
+
+I would also treat incoming email content and attachments as untrusted input and protect against prompt injection.
+
+6\. Financial accuracy
+
+The LLM would only extract information.
+
+The .NET services would independently validate portfolio IDs, security IDs, transaction quantities, permissions and financial business rules.
+
+No LLM output would directly trigger a financial order.
+
+7\. Human approval
+
+High-impact financial actions would require authorized human review and approval under existing business controls.
+
+8\. Monitoring
+
+I would monitor extraction accuracy, queue depth, model latency, token usage, failed requests, business validation failures and processing cost.
+
+9\. Phased implementation
+
+I would begin with shadow processing, compare AI-generated output against existing processing and human-reviewed results, and gradually enable the new workflow after meeting agreed acceptance criteria.
+
+### Strong closing statement
+
+"My objective as Technical Lead would be to build an AI-enabled enterprise system, not simply connect an LLM API. The solution must combine AI intelligence with deterministic business processing, secure integration, scalability, observability and human accountability."
+
+### Part 8 – Knowledge check
+
+Test your understanding before reading the answers.
+
+Day 9 assessment
+
+0/8 completed
+
+1. What is the primary purpose of Transformer architecture?
+
+To store database records
+
+To process sequences using attention mechanisms
+
+To replace cloud infrastructure
+
+2. What are the three components used in Self-Attention?
+
+Query, Key and Value
+
+Input, Output and Database
+
+Encoder, API and Decoder
+
+3. What does positional information help the model understand?
+
+AWS region
+
+Order of tokens in a sequence
+
+Database schema
+
+4. What is Multi-Head Attention?
+
+Running multiple databases
+
+Performing multiple attention operations in parallel
+
+Training multiple programming languages
+
+5. What does causal masking prevent in GPT-style generation?
+
+Access to databases
+
+Attention to future tokens
+
+Use of embeddings
+
+6. What is KV Cache used for?
+
+Storing SQL queries
+
+Reusing previously computed Keys and Values during generation
+
+Encrypting emails
+
+7. Which architecture is commonly associated with GPT-style LLMs?
+
+Decoder-only Transformer
+
+Encoder-only Transformer
+
+Traditional relational database
+
+8. Should attention weights be treated as guaranteed explanations of a model's decision?
+
+Yes, always
+
+No, they are not necessarily faithful explanations
+
+Only for financial applications
+
+Submit assessment
+
+### Part 9 – Important interview revision notes
+
+Before finishing today's lesson, remember these 12 concepts.
+
+| Technical term      | Simple explanation                               |
+| ------------------- | ------------------------------------------------ |
+| Transformer         | Attention-based neural network architecture      |
+| Encoder             | Processes input context                          |
+| Decoder             | Generates output                                 |
+| Tokenization        | Converts text into tokens                        |
+| Token ID            | Numerical identifier for a token                 |
+| Embedding           | Numerical vector representation                  |
+| Positional Encoding | Adds sequence-position information               |
+| Self-Attention      | Relates tokens within the same sequence          |
+| Query               | Representation used to seek relevant information |
+| Key                 | Representation used to calculate relevance       |
+| Value               | Information combined using attention weights     |
+| KV Cache            | Reuses previous Key and Value computations       |
+
+### Your practical homework
+
+Day 9 completion checklist
+
+Your study progress
+
+0/7
+
+Understand the difference between Encoder and Decoder
+
+Explain Self-Attention in simple English
+
+Understand Query, Key and Value
+
+Understand Multi-Head Attention
+
+Run the Python attention demonstration
+
+Answer all five interview questions aloud
+
+Explain the 50,000-email enterprise architecture scenario
+
+### Day 10 – Next lesson: Prompt Engineering for Enterprise GenAI Applications
+
+![Businessman generating AI prompt on laptop. Flat design vector illustration.](https://images.openai.com/static-rsc-4/N3q399NyEelLJh-R5J4odktohsTYJxdlabmvF29LOkbc2y1aPOrSz0HlL2u28-Omo-aQzpiv1AW2CIJZkV6FXHYO4Ol86uXhANynIJhCMaPa7K3N8kfJesO7EhM3YL97Ye0ADFNnT5-JZAqw2oPV9INfN3bu8qjfOppD3HWm_Io9RohwOhRS9gb0JFDVjx_B?purpose=fullsize)
+
+Prompt Engineering – Beginner to Advanced
+
+Next learning session
+
+60-minute practical lesson
+
+You will learn:
+
+* What is prompt engineering?
+
+* System prompts vs user prompts.
+
+* Zero-shot prompting.
+
+* One-shot and few-shot prompting.
+
+* Chain-of-thought concepts and reasoning limitations.
+
+* Role-based prompting.
+
+* Structured JSON output.
+
+* Prompt templates in Python.
+
+* Prompt injection and security.
+
+* Integrating prompts into your existing AWS Lambda and .NET 8 application.
+
+Hands-on project: Build an Investment Order Extraction Prompt that converts portfolio manager emails into structured JSON, handles missing information and rejects unsupported instructions.
+
+Interview preparation: Five Senior/Technical Lead questions and one complete enterprise architecture scenario.
+
+Today's key takeaway: You do not need to become a researcher who builds Transformer models from scratch to become an AI Technical Lead. You need to understand how they work, where their limitations are, how to integrate them into enterprise systems, and how to ensure that the resulting application remains secure, reliable, observable and financially correct.

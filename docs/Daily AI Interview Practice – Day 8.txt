@@ -1,0 +1,1182 @@
+### Daily AI Interview Practice – Day 8
+
+### Generative AI Fundamentals: GenAI vs Traditional AI, LLMs, Foundation Models and How ChatGPT Works
+
+New lessonBeginner to Technical Lead60 minutes
+
+Your target role: Technical Lead – AI & GenAI
+
+Your professional background: 16+ years in enterprise software development, C#, .NET 8, AWS, Microservices, SQL Server, React and Financial Services.
+
+Today's objective: Understand Generative AI from the ground up and learn how to introduce it into existing enterprise applications.
+
+Today is an important milestone. We are moving from traditional Machine Learning into Generative AI.
+
+In previous lessons, you learned how traditional ML models predict categories and discover patterns. Today, you will understand how AI systems can generate new content, summarize financial documents, extract information from emails and answer questions using natural language.
+
+### Today's study plan
+
+| Section                                          | Duration |
+| ------------------------------------------------ | -------- |
+| 1. AI, ML, Deep Learning and GenAI               | 10 min   |
+| 2. Understanding LLMs and foundation models      | 10 min   |
+| 3. How ChatGPT generates answers                 | 10 min   |
+| 4. Important GenAI terminology                   | 10 min   |
+| 5. Practical Python exercise                     | 10 min   |
+| 6. Interview questions and architecture scenario | 10 min   |
+| Total                                            | 60 min   |
+
+### Part 1. AI vs ML vs Deep Learning vs Generative AI
+
+This is one of the most frequently asked questions in AI interviews.
+
+### 1\. What is Artificial Intelligence?
+
+Artificial Intelligence (AI) is a broad field of computer science that focuses on building systems capable of performing tasks that typically require human intelligence.
+
+Examples:
+
+* Understanding human language.
+
+* Recognizing images.
+
+* Making predictions.
+
+* Identifying unusual patterns.
+
+* Generating content.
+
+* Answering questions.
+
+For example, imagine an investment management application.
+
+You want a system that can:
+
+* Read portfolio manager emails.
+
+* Understand buy/sell instructions.
+
+* Extract investment information.
+
+* Identify missing details.
+
+* Prepare structured JSON.
+
+* Send the information to your existing .NET API.
+
+This is an example of how AI can enhance an existing enterprise application.
+
+### 2\. What is Machine Learning?
+
+Machine Learning is a subset of AI.
+
+It allows computers to learn patterns from historical data and use those patterns to make predictions.
+
+Example:
+
+You have 100,000 historical financial transactions.
+
+You train an ML model to predict whether a new transaction requires investigation.
+
+The model learns from historical examples.
+
+Common algorithms:
+
+* Logistic Regression.
+
+* Decision Trees.
+
+* Random Forest.
+
+* K-Means.
+
+These are the traditional ML algorithms you studied in previous lessons.
+
+### 3\. What is Deep Learning?
+
+Deep Learning is a subset of Machine Learning that uses artificial neural networks with multiple layers.
+
+It is especially useful for learning complex patterns in large datasets.
+
+Examples:
+
+* Speech recognition.
+
+* Image recognition.
+
+* Language understanding.
+
+* Complex pattern recognition.
+
+Many modern Large Language Models are built using deep learning.
+
+### 4\. What is Generative AI?
+
+Generative AI is a category of AI that creates new content based on patterns learned from training data.
+
+It can generate:
+
+* Text.
+
+* Images.
+
+* Audio.
+
+* Video.
+
+* Computer code.
+
+* Structured data.
+
+Examples include:
+
+* ChatGPT generating answers.
+
+* AI generating Python code.
+
+* AI summarizing financial reports.
+
+* AI drafting investment research summaries.
+
+![File:Unraveling AI Complexity - A Comparative View of AI, Machine Learning, Deep Learning, and Generative AI.png - Wikimedia Commons](https://images.openai.com/static-rsc-4/QSgE7lNKL9lddxH3HxtXCZGiMu_j7BvIa2RW0omxjWssBPw4AJ-wiYgiRFsClCjTpwaVt_oHSnL7CFD2Ar23v8b8EnBvADm9xaMULJjDv3GTPokbnOMEtq80u4BTeG6-nQoMTuC0SIn0QEAZIIUX8a7ZVfRdIYmEyxLAHcAm-TfeQbF8vuF5papFYnyZkIBj?purpose=fullsize)
+
+![Generative AI (ChatGPT, Copilot, Gemini) — Capabilities, Limits and Risks for Leaders and Decision Makers](https://images.openai.com/static-rsc-4/1oshyRFuQ4ASPFyf2X95lECaet9P60qqiCcV6NNR5AIRz2rAhPG6GyOJaAhTNmkKCMe43WUDMBEa3oz88pduc-z_uOV3-PvyzbDfu-sceYtThizWJsou8jHTt2dpUXPGBOoh0f9-irHoxBmmnn8uSch1cGKXzjpkM_j25TfF18pVLSlzMlpUbod6F1dC1bmE?purpose=fullsize)
+
+### Traditional AI vs Generative AI
+
+| Traditional ML                                | Generative AI                                             |
+| --------------------------------------------- | --------------------------------------------------------- |
+| Primarily predicts or classifies              | Generates new content                                     |
+| Often trained for a specific task             | Foundation models can support many tasks                  |
+| Typically produces labels or numerical values | Can produce natural language, code and structured outputs |
+| Example: Predict transaction risk             | Example: Explain why a transaction was flagged            |
+| Example: Predict portfolio value              | Example: Summarize portfolio performance                  |
+
+Important: Generative AI does not replace traditional ML. Both can be used together in enterprise applications.
+
+### Financial services example
+
+Consider your Apollo investment management project.
+
+Traditional ML could predict which transactions may require investigation.
+
+Generative AI could:
+
+* Read portfolio manager instructions.
+
+* Extract buy/sell orders.
+
+* Summarize investment emails.
+
+* Explain model predictions using available evidence.
+
+* Generate structured JSON for downstream processing.
+
+A combined solution can use both technologies.
+
+### Part 2. What is an LLM? (10 minutes)
+
+### 1\. Understanding Large Language Models
+
+LLM stands for Large Language Model.
+
+An LLM is an AI model trained on large amounts of text and other language-related data to understand and generate language.
+
+It can perform tasks such as:
+
+* Answering questions.
+
+* Summarizing documents.
+
+* Translating languages.
+
+* Generating code.
+
+* Extracting information.
+
+* Classifying text.
+
+* Drafting emails.
+
+Examples of LLMs include:
+
+![Chatte mit den besten KI-Modellen der Welt.](https://images.openai.com/static-rsc-4/qO85TAfMTxahIJYld27RinXLG5zgttvhw4Q88odISW9BiyV-ACcC7S-8s7knr6kVNs_UBZ7p9GEIZralmqz2qGDecgQCX8HpqaXxga-6Q30qpgPg1CnezWqwKvCE1VAzLyZzTciE8Bs53nd4LKSBIUv30FX59TfHACNMC__mAKvGnO8hC5SYocy83MwesoXG?purpose=fullsize)
+
+OpenAI GPT models
+
+Used for reasoning, text generation, coding and enterprise AI applications.
+
+Provider: OpenAI
+
+![Claude](https://images.openai.com/static-rsc-4/jOIQuefb1X19rQ4KRiLP6XWGnVrzioLEcCVXO4CJcW4mpqe9IeRSNYVg0qTluRcyB257yU9Mkj_qjqxDfP1aLQYlW5VpsZD7cv4NI1HIGN6aKx8OppYBgJN8Ll3czxTi1sy-9qrTOhfPbmOZFSkw917oqlHh4uSwXqqGSglIrUtteYpjz5JWOJtUA0BkzfCQ?purpose=fullsize)
+
+Claude
+
+Large language models used for text, coding and document-based tasks.
+
+Provider: Anthropic
+
+![7+ Google Gemini Logo PNG & SVG Vectors HD Quality](https://images.openai.com/static-rsc-4/Paw3vx0u5L8G9NpxR2cyDJo8Ry8fCw9CZKYZuC6fgCKrshNL0B1bkUykeWHZOQgCP1HNe0Q4K0KvVC5M_wbMTZDnOVw39vyMWj8WqttcbEBBHdaAABusZ04IPg25gKWGEYaV2QVET4VIqnaUsMnz9oLzPAScy9idY7RMV4FLYHJLUXO4AzsOXdxrwwOIaZPR?purpose=fullsize)
+
+Gemini
+
+Google's family of generative AI models.
+
+Provider: Google
+
+![AWS Marketplace: LLaMA 3.2 3b Boosted by openSUSE MultiCortex HPC](https://images.openai.com/static-rsc-4/MiZPuSUexAqPYBdC3DfFpzCLPp4blchIg2l0h-3flC60bh7Csmva8bJPC0P6Pru1D53rm9g646rETL7TBJNvTSFse_S5jkO5a04Zw6_mfLOtRUc7uwDoFi412XcnNgX4ZWuGkpDgH0ewzxMPvvVLMxqZyfDj5qa_OEUU6Gn37Z79I-U8iTaHwKPzOK5hZTuy?purpose=fullsize)
+
+Llama
+
+A family of open-weight language models.
+
+Provider: Meta
+
+### 2\. What is a Foundation Model?
+
+A Foundation Model is a model trained on broad datasets that can be adapted or prompted to perform multiple downstream tasks.
+
+Think of it as a general-purpose AI engine.
+
+For example, one foundation model may be used for:
+
+* Summarizing financial documents.
+
+* Answering questions.
+
+* Extracting transaction details.
+
+* Generating code.
+
+* Classifying emails.
+
+You don't necessarily need to train a separate model for each task.
+
+### Foundation Model vs LLM
+
+| Foundation Model                                       | LLM                                    |
+| ------------------------------------------------------ | -------------------------------------- |
+| Broad category of pretrained models                    | A foundation model focused on language |
+| Can work with text, images, audio and other modalities | Primarily designed for language tasks  |
+| May be multimodal                                      | May also be multimodal                 |
+
+A multimodal model can process more than one type of input, such as text and images.
+
+### 3\. What is Model Training?
+
+Training is the process through which a model learns patterns from data by adjusting its internal parameters.
+
+For example:
+
+A language model processes a large amount of text during training.
+
+It learns statistical relationships between words, phrases and other tokens.
+
+The resulting model can generate language based on the patterns it learned.
+
+### 4\. What is Inference?
+
+Inference is the process of using an already-trained model to generate a prediction or response.
+
+Example:
+
+Training:
+
+The model learns from its training data.
+
+Inference:
+
+You send the following question:
+
+"What is a mutual fund?"
+
+The model generates an answer.
+
+### Training vs Inference
+
+| Training                         | Inference                                  |
+| -------------------------------- | ------------------------------------------ |
+| Model learns from data           | Model uses what it learned                 |
+| Computationally intensive        | Depends on model and request complexity    |
+| Adjusts model parameters         | Normally does not change model parameters  |
+| Happens during model development | Happens when users interact with the model |
+
+Interview takeaway: When integrating GenAI into enterprise applications, you will most often consume a pretrained model through inference APIs rather than train a foundation model yourself.
+
+### Part 3. How does ChatGPT generate answers? (10 minutes)
+
+This is an essential concept for understanding LLMs.
+
+Let's understand it with a simple example.
+
+You enter:
+
+"What is AWS Lambda?"
+
+The model generates an answer one token at a time.
+
+### 1\. What is a Token?
+
+A token is a unit of text processed by a language model.
+
+A token can represent:
+
+* A complete word.
+
+* Part of a word.
+
+* A punctuation mark.
+
+* A number or other text unit.
+
+For example:
+
+```text
+Artificial Intelligence is useful.
+```
+
+The model may divide this sentence into multiple tokens.
+
+Tokenization depends on the model's tokenizer. A token is not necessarily the same as a word.
+
+![Tokens and Tokenization are an Important for Fundamental LLM Understanding | NextBigFuture.com](https://images.openai.com/static-rsc-4/jmgdTIuFq6o5qj5NkrtKl8eoltxDjfORbwf9bCf_XldyQNm_Y-Pa7VAk8lg1SP0xX34ZrdWgeJMNBSl9lepRtGTrxAIMFEuplQq1ApCgSsLZ2cWDn5Y3boPWMoOUpVZMuC42F2R9dU8TBm7ERCtq9wDPS6LgiGYjkicB7n7XtQ-SZldxkUksLzEM0eaCm01B?purpose=fullsize)
+
+### Why are tokens important?
+
+Tokens affect:
+
+* Input size.
+
+* Output size.
+
+* Model processing limits.
+
+* API pricing.
+
+* Response latency.
+
+For example, if you send a 100-page financial document to an LLM, the number of tokens may be very large.
+
+This can increase cost and may exceed the model's context limit.
+
+As a Technical Lead, you should understand token usage when designing high-volume enterprise AI applications.
+
+### 2\. What is a Context Window?
+
+A context window is the maximum amount of input and output content a model can process in a single interaction, measured in tokens.
+
+Imagine that you ask an LLM to summarize a 500-page investment management document.
+
+If the document exceeds the model's available context window, you cannot simply send the entire document in one request.
+
+You may need:
+
+* Document splitting.
+
+* Chunking.
+
+* Summarization.
+
+* Retrieval-Augmented Generation (RAG).
+
+We will study RAG in a future lesson.
+
+Important: A larger context window does not automatically mean the model will use every piece of information equally well.
+
+### 3\. How does an LLM generate the next token?
+
+An LLM generally generates text by estimating probabilities for possible next tokens based on the preceding context.
+
+Example:
+
+Prompt:
+
+```text
+The capital of India is
+```
+
+The model estimates possible next tokens.
+
+Illustrative probabilities:
+
+| Possible next token | Probability |
+| ------------------- | ----------- |
+| New                 | 90%         |
+| Mumbai              | 5%          |
+| Bangalore           | 3%          |
+| Other               | 2%          |
+
+These values are hypothetical and are only meant to explain the concept.
+
+The model selects a token according to its decoding strategy and continues generating the response.
+
+For example:
+
+```text
+The capital of India is New Delhi.
+```
+
+It repeats this process until it reaches a stopping condition or output limit.
+
+![Large Language Models: Supercharged Autocomplete That “Understands” Context — Amr Aboeleneen](https://images.openai.com/static-rsc-4/MhKOR-olqQ85-QeKv7yFLNROuHuwtH0MBW1jHSJqyAZ16x-njaXPFLexG8aM_A8_3z9CTCI_Qrv4qut9ZRBW2RoxTMVEE5vmUNaDdhlmo9HSHjJF3lhO_ieY4qpqO5cyu_mKYqQLICzJwKW6aPV0PIOD09nWpIlhnDTJCpxAH3R5ybMtNjZAHMP6kFPlirT8?purpose=fullsize)
+
+### 4\. What is a Transformer?
+
+A Transformer is a neural network architecture that is fundamental to many modern LLMs.
+
+It uses a mechanism called Attention.
+
+### What is Attention?
+
+Attention allows a model to weigh the relevance of different parts of the input when processing information.
+
+Example:
+
+"The portfolio manager sent an order to purchase 500 shares. The manager confirmed it yesterday."
+
+The model needs to understand what "it" refers to.
+
+Attention mechanisms help the model use relevant context when processing the sentence.
+
+We will explore Transformer architecture, self-attention and positional information in more detail in Day 9.
+
+### Part 4. Five important GenAI concepts (10 minutes)
+
+### 1\. What is Prompt Engineering?
+
+Prompt Engineering is the practice of designing instructions and providing context to guide an LLM toward a useful output.
+
+Example:
+
+Weak prompt:
+
+```text
+Read this email.
+```
+
+Better prompt:
+
+```text
+You are an investment operations assistant.
+
+Read the following portfolio manager email.
+
+Extract:
+1. Portfolio ID
+2. Security name
+3. Buy or Sell instruction
+4. Quantity
+
+Return the result in JSON.
+
+If information is missing, return null.
+
+Do not invent missing values.
+
+Email:
+"Please buy 500 shares of ABC Ltd
+for portfolio P1001."
+```
+
+The second prompt provides:
+
+* Role.
+
+* Task.
+
+* Output format.
+
+* Constraints.
+
+* Source information.
+
+We will study advanced prompting techniques in Day 10.
+
+### 2\. What is a Hallucination?
+
+An AI hallucination occurs when a model generates information that is incorrect, unsupported or fabricated but may sound convincing.
+
+Example:
+
+You ask:
+
+"What was the portfolio's closing value yesterday?"
+
+The model does not have access to the actual portfolio database.
+
+It responds:
+
+"The closing value was ₹50 lakh."
+
+This is dangerous because the answer sounds authoritative despite lacking evidence.
+
+### How can we reduce hallucinations?
+
+* Supply trusted information.
+
+* Use RAG when appropriate.
+
+* Ask the model to identify missing information.
+
+* Require citations or source references where supported.
+
+* Validate outputs.
+
+* Use deterministic business rules.
+
+* Require human approval for consequential decisions.
+
+Remember: Prompt instructions alone cannot guarantee that hallucinations will never occur.
+
+### 3\. What is Fine-Tuning?
+
+Fine-tuning means taking a pretrained model and further training it on a specialized dataset to adapt its behavior to a particular task or domain.
+
+Example:
+
+You want a model to consistently follow your organization's specialized financial terminology and classification patterns.
+
+Fine-tuning may be useful if prompting and retrieval are insufficient.
+
+However, fine-tuning is not the same as providing current business data to the model.
+
+For frequently changing financial information, retrieving the latest trusted data is often more appropriate.
+
+### 4\. What is an Open-Weight Model?
+
+An open-weight model provides access to its learned model parameters under the provider's license.
+
+This can allow organizations to run or adapt the model in their own environments.
+
+However, open weights do not automatically mean:
+
+* Open-source training data.
+
+* Unlimited commercial usage.
+
+* No licensing restrictions.
+
+* No infrastructure costs.
+
+* Better privacy by default.
+
+### 5\. What is Temperature?
+
+Temperature is a model-generation setting that influences how predictable or varied token selection is.
+
+General behavior:
+
+| Temperature | Typical behavior        |
+| ----------- | ----------------------- |
+| Low         | More predictable output |
+| Medium      | Some variation          |
+| High        | More diverse output     |
+
+For financial information extraction, a lower temperature is often preferable.
+
+For creative content generation, a higher temperature may be useful.
+
+However, low temperature does not guarantee factual correctness or deterministic output.
+
+### Part 5. Hands-on practical exercise (10 minutes)
+
+### Project: Build a Financial Email Information Extraction Assistant
+
+Let's connect today's concepts to your existing Apollo project.
+
+Your application already uses:
+
+* Python AWS Lambda.
+
+* Microsoft Graph API.
+
+* AWS S3.
+
+* .NET 8 REST APIs.
+
+* SQL Server.
+
+* React.
+
+Imagine receiving this email:
+
+Sample Portfolio Manager Email
+
+Synthetic example
+
+Subject: Investment Order – Portfolio P1001
+
+Email body:
+
+Dear Operations Team,
+
+Please execute the following investment instruction for portfolio P1001:
+
+* Action: BUY
+
+* Security: ABC Limited
+
+* Quantity: 500 shares
+
+* Order type: Market
+
+Please process the instruction after the necessary validation.
+
+Regards,
+
+Portfolio Manager
+
+Your objective is to use an LLM-style prompt to extract structured information.
+
+### Step 1. Create a Python file
+
+Create:
+
+`financial_ai_assistant.py`
+
+### Step 2. Define the input email
+
+```python
+email_text = """
+Dear Operations Team,
+
+Please execute the following investment instruction
+for portfolio P1001:
+
+Action: BUY
+Security: ABC Limited
+Quantity: 500 shares
+Order Type: Market
+
+Please process the instruction after validation.
+
+Regards,
+Portfolio Manager
+"""
+```
+
+### Step 3. Design the prompt
+
+```python
+prompt = f"""
+You are an investment operations assistant.
+
+Read the portfolio manager's email.
+
+Extract the following information:
+
+1. Portfolio ID
+2. Action
+3. Security Name
+4. Quantity
+5. Order Type
+
+Return JSON only.
+
+Rules:
+- Action must be BUY or SELL.
+- Quantity must be numeric.
+- If information is missing, return null.
+- Do not invent information.
+- Do not execute any financial transaction.
+
+Email:
+{email_text}
+"""
+
+print(prompt)
+```
+
+### Step 4. Understand the expected LLM response
+
+For this first exercise, simulate the LLM response.
+
+In a later lesson, we will connect to an actual foundation model.
+
+```python
+import json
+
+mock_llm_response = """
+{
+    "portfolio_id": "P1001",
+    "action": "BUY",
+    "security_name": "ABC Limited",
+    "quantity": 500,
+    "order_type": "Market"
+}
+"""
+
+result = json.loads(mock_llm_response)
+
+print(result)
+```
+
+### Step 5. Validate the response using deterministic Python rules
+
+This is extremely important.
+
+Never assume that a syntactically valid LLM response is automatically business-valid.
+
+```python
+def validate_order(order):
+
+    if order["action"] not in ["BUY", "SELL"]:
+        raise ValueError("Invalid action")
+
+    if not isinstance(order["quantity"], int):
+        raise ValueError("Quantity must be an integer")
+
+    if order["quantity"] <= 0:
+        raise ValueError("Quantity must be positive")
+
+    if not order["portfolio_id"]:
+        raise ValueError("Portfolio ID is required")
+
+    if not order["security_name"]:
+        raise ValueError("Security name is required")
+
+    return True
+
+if validate_order(result):
+    print("Basic validation successful")
+```
+
+In a production system, also validate:
+
+* Portfolio existence.
+
+* Security identifier against a trusted security master.
+
+* User authorization.
+
+* Order limits.
+
+* Available cash or position.
+
+* Duplicate instructions.
+
+* Trading restrictions.
+
+* Approval requirements.
+
+### Step 6. Understand how this fits into your .NET architecture
+
+### Proposed enterprise integration
+
+Microsoft Graph API
+
+Email retrieval
+
+AWS Lambda – Python
+
+Email parsing and prompt construction
+
+Foundation Model
+
+Natural language extraction
+
+Deterministic validation
+
+Schema, business rules and authorization
+
+.NET 8 REST API
+
+Trusted enterprise integration
+
+React UI – Human Review
+
+Authorized approval before financial execution
+
+Production security requirements:
+
+* Protect sensitive emails and attachments.
+
+* Use IAM least-privilege permissions.
+
+* Avoid exposing confidential financial information in logs.
+
+* Use secure model access.
+
+* Treat email contents as untrusted input, not instructions that can override system policies.
+
+* Prevent prompt injection.
+
+* Maintain audit trails.
+
+* Ensure duplicate order protection and idempotency.
+
+* Never allow the model to bypass financial authorization.
+
+Today's Python exercise uses a mocked model response. It demonstrates the extraction and validation workflow, not an actual LLM integration.
+
+### Part 6. Five Technical Lead interview questions (10 minutes)
+
+### Q1. What is the difference between Traditional Machine Learning and Generative AI?
+
+Strong sample answer:
+
+Traditional Machine Learning primarily focuses on learning patterns from historical data to make predictions, classifications or discover relationships.
+
+Generative AI focuses on creating new content such as text, code, images and structured responses.
+
+For example, in financial services, a traditional ML model can predict whether a transaction requires investigation, while a Generative AI model can summarize the transaction history and explain relevant information to an operations user.
+
+In enterprise architecture, I would use these technologies together where appropriate rather than treating them as alternatives.
+
+### Q2. What is an LLM, and how does it work?
+
+Strong sample answer:
+
+An LLM is a Large Language Model trained on large datasets to understand and generate language.
+
+Most modern LLMs use Transformer-based neural network architectures.
+
+They process input text as tokens and generate output by predicting subsequent tokens based on the preceding context.
+
+They can support use cases such as summarization, question answering, information extraction and code generation.
+
+For enterprise applications, I would consume a suitable pretrained model through a secure inference API rather than train a foundation model from scratch.
+
+### Q3. What is the difference between Model Training and Inference?
+
+Strong sample answer:
+
+Training is the process of learning model parameters from data.
+
+Inference is the process of using an already-trained model to generate predictions or responses.
+
+In my enterprise environment, I would generally integrate pretrained foundation models through inference APIs.
+
+This reduces the infrastructure and operational complexity associated with training large models.
+
+I would focus on selecting an appropriate model, prompt design, data protection, latency, token costs and output validation.
+
+### Q4. What is a hallucination in Generative AI, and how do you control it?
+
+Strong sample answer:
+
+A hallucination occurs when an LLM produces information that is unsupported, incorrect or fabricated.
+
+This is a significant concern in financial applications because incorrect financial information could lead to poor decisions.
+
+I would reduce this risk through several layers:
+
+* Supply trusted and relevant context.
+
+* Use RAG when access to internal knowledge is required.
+
+* Require source references where applicable.
+
+* Validate structured outputs against schemas.
+
+* Apply deterministic business rules.
+
+* Monitor output quality.
+
+* Require human approval for consequential financial actions.
+
+I would also clearly distinguish between AI-generated recommendations and verified financial data.
+
+### Q5. What is the difference between Prompt Engineering and Fine-Tuning?
+
+Strong sample answer:
+
+Prompt Engineering involves designing instructions, context and output constraints to guide an existing model.
+
+Fine-Tuning involves additional training of a pretrained model using specialized data to adapt its behavior.
+
+I would begin with prompt engineering because it is generally faster and less operationally complex.
+
+If the application requires specialized behavior that cannot be achieved sufficiently through prompting and retrieval, I would evaluate fine-tuning.
+
+For frequently changing business information, I would generally prefer retrieving the latest trusted data rather than relying on model fine-tuning.
+
+### Part 7. Scenario-based Technical Lead interview question
+
+### Scenario: Management wants to introduce Generative AI into Apollo
+
+Your organization currently processes portfolio manager emails using Python Lambda and Microsoft Graph API.
+
+The extracted investment instructions are transformed into JSON and passed to a .NET 8 REST API.
+
+The organization wants to introduce Generative AI to improve email understanding and information extraction.
+
+### Interview question
+
+As a Technical Lead, how would you introduce Generative AI into the existing application without affecting the reliability of financial order processing?
+
+### Strong sample answer
+
+I would introduce Generative AI as an additional intelligence layer rather than replacing the existing enterprise transaction-processing architecture.
+
+First, I would identify the specific business problems.
+
+These may include:
+
+* Extracting structured information from unstructured emails.
+
+* Identifying missing order information.
+
+* Summarizing portfolio manager instructions.
+
+* Classifying different types of investment requests.
+
+I would evaluate an appropriate foundation model, such as one available through Amazon Bedrock.
+
+### Proposed architecture
+
+![AI-Powered Serverless Architecture with AWS Bedrock & Anthropic Claude
+
+This AWS architecture diagram represents a cloud-based AI-driven system utilizing AWS services to handle user interactions… | Naushad Ahmad](https://images.openai.com/static-rsc-4/flPQMLYutBlWw3c3QKsy7h8GKXTjQ21BkP4-j2anRel1S4mnM3bFqJkM-ZIjGWMyj2Jmn3NwlBX3DLKFHfdWJ34nUl22lIsG1L5vWl6q2J9qvF_sir-5vfVaduKkZHUBwmQmNvN0y8mFCNnJI4zlQEBWj6ZN4L5qhL5MhQghrGfZirljOuV4r4ZlEnHX7nSZ?purpose=fullsize)
+
+The processing flow would be:
+
+* Microsoft Graph retrieves incoming emails.
+
+* AWS Lambda processes email content and attachments.
+
+* The application constructs a controlled prompt.
+
+* A foundation model generates structured JSON.
+
+* Python validates the response format.
+
+* The .NET 8 API performs deterministic business validation.
+
+* Valid instructions are presented in React for authorized human review.
+
+* Approved instructions enter the existing order-processing workflow.
+
+### Key architectural decisions
+
+1\. Model selection
+
+I would compare candidate foundation models based on extraction quality, latency, cost, supported languages and data governance requirements.
+
+2\. Security
+
+I would use IAM roles, least-privilege permissions, encryption and secure configuration.
+
+3\. Prompt injection protection
+
+Email content must be treated as untrusted data. A malicious email must not be allowed to override system instructions or cause unauthorized tool execution.
+
+4\. Deterministic validation
+
+The model can extract an order, but the .NET application must independently verify portfolio identifiers, security identifiers, quantities, permissions and trading restrictions.
+
+5\. Human approval
+
+The AI model must not independently execute financial orders. Authorized users must approve consequential transactions under the organization's controls.
+
+6\. Scalability
+
+I would use asynchronous processing, queues where appropriate, retries, dead-letter handling and idempotency to support high-volume workloads.
+
+7\. Observability
+
+I would monitor:
+
+* Model response time.
+
+* Token consumption.
+
+* Extraction success rate.
+
+* Invalid JSON responses.
+
+* Business validation failures.
+
+* Model errors.
+
+* Cost per processed email.
+
+8\. Rollout strategy
+
+I would begin with a controlled pilot or shadow mode.
+
+We would compare the extracted data against existing processing results and human-reviewed outcomes.
+
+After meeting agreed acceptance criteria, we could progressively enable the new workflow.
+
+### Strong closing statement
+
+"My architecture principle would be to use Generative AI for understanding unstructured information while keeping financial calculations, business validations, authorization and transaction execution within deterministic enterprise services."
+
+Technical Lead answer
+
+### Part 8. Knowledge assessment
+
+Try to answer these questions before checking the answers.
+
+Day 8 mini assessment
+
+0/8 answered
+
+1. What is Generative AI primarily designed to do?
+
+Only store historical data
+
+Generate new content
+
+Only calculate SQL queries
+
+2. What does LLM stand for?
+
+Large Language Model
+
+Logical Learning Machine
+
+Language Logic Method
+
+3. What is a token?
+
+A database table
+
+A unit of text processed by a model
+
+A cloud server
+
+4. What is inference?
+
+Training a model from scratch
+
+Using a trained model to generate a response
+
+Deleting model parameters
+
+5. What is a hallucination?
+
+A model generating unsupported information
+
+A model running slowly
+
+A model consuming fewer tokens
+
+6. What does a context window define?
+
+The number of AWS accounts
+
+The amount of content a model can process in an interaction
+
+The number of databases
+
+7. What is fine-tuning?
+
+Formatting JSON
+
+Additional training of a pretrained model
+
+Increasing API timeout
+
+8. Should an LLM directly execute investment orders?
+
+Yes, always
+
+Only if temperature is low
+
+No, financial authorization and approval controls must remain
+
+Submit answers
+
+### Part 9. Your AI learning roadmap
+
+Learning progress
+
+### 8/30
+
+Eight foundational sessions completed in the planned sequence.
+
+| Day | Topic                                     | Status   |
+| --- | ----------------------------------------- | -------- |
+| 1   | AI Fundamentals                           |          |
+| 2   | Python Fundamentals                       |          |
+| 3   | NumPy and Pandas                          |          |
+| 4   | FastAPI and .NET Integration              |          |
+| 5   | ML Fundamentals                           |          |
+| 6   | ML Algorithms                             |          |
+| 7   | Model Evaluation                          |          |
+| 8   | Generative AI Fundamentals                |          |
+| 9   | LLMs and Transformer Architecture         | Upcoming |
+| 10  | Prompt Engineering                        | Upcoming |
+| 11  | Advanced Prompting and Structured Output  | Upcoming |
+| 12  | Embeddings                                | Upcoming |
+| 13  | Vector Databases                          | Upcoming |
+| 14  | RAG Architecture                          | Upcoming |
+| 15  | RAG Implementation                        | Upcoming |
+| 16  | Amazon Bedrock                            | Upcoming |
+| 17  | Bedrock Model Integration                 | Upcoming |
+| 18  | .NET and AWS GenAI Integration            | Upcoming |
+| 19  | AI Agents                                 | Upcoming |
+| 20  | Agentic Workflows and Tool Calling        | Upcoming |
+| 21  | AI Security                               | Upcoming |
+| 22  | Responsible AI and Governance             | Upcoming |
+| 23  | GenAI Evaluation                          | Upcoming |
+| 24  | LLM Observability and Cost                | Upcoming |
+| 25  | Enterprise AI Architecture                | Upcoming |
+| 26  | Scaling and Reliability                   | Upcoming |
+| 27  | Financial Services AI Use Cases           | Upcoming |
+| 28  | AI System Design Interviews               | Upcoming |
+| 29  | Technical Leadership Interviews           | Upcoming |
+| 30  | Complete Mock AI Technical Lead Interview | Upcoming |
+
+The roadmap is a planned sequence; topics can be adjusted as your practical understanding develops.
+
+### Today's final interview revision
+
+Memorize these 10 important concepts:
+
+| Concept          | Interview-ready explanation                          |
+| ---------------- | ---------------------------------------------------- |
+| AI               | Broad field of intelligent computer systems          |
+| ML               | Learning patterns from data                          |
+| Deep Learning    | ML using multilayer neural networks                  |
+| Generative AI    | AI that generates new content                        |
+| LLM              | Large Language Model                                 |
+| Foundation Model | Broadly pretrained model adaptable to multiple tasks |
+| Token            | Unit of text processed by an LLM                     |
+| Context Window   | Available token capacity for an interaction          |
+| Hallucination    | Unsupported or incorrect generated information       |
+| Inference        | Using a trained model to generate an output          |
+
+### Five questions you should be able to answer confidently
+
+* What is the difference between AI, ML, Deep Learning and Generative AI?
+
+* What is an LLM, and how does it generate text?
+
+* What is the difference between training and inference?
+
+* What are tokens and context windows?
+
+* How would you safely integrate Generative AI into an existing .NET and AWS financial application?
+
+### Day 9 – Next lesson
+
+### Large Language Models and Transformer Architecture – Deep Dive
+
+Tomorrow's topic will explain the internal working of LLMs.
+
+You will learn:
+
+* Transformer architecture.
+
+* Encoder vs Decoder.
+
+* Self-Attention.
+
+* Multi-Head Attention.
+
+* Positional Encoding.
+
+* Embeddings introduction.
+
+* Next-token prediction.
+
+* Temperature and Top-P.
+
+* How to select an LLM for an enterprise application.
+
+Practical exercise: Understand the architecture of an LLM-powered financial email processing application and implement a basic Python demonstration of tokenization and model inference concepts.
+
+Your career focus: Learn enough LLM architecture to confidently answer technical design and system architecture questions at Technical Lead level.
