@@ -4,13 +4,13 @@
     {
       "name": "Git auto-sync on file save",
       "trigger": "PostFileSave",
-      "description": "Stages and commits any saved file to the current branch automatically, keeping the working tree clean and all changes versioned.",
-      "matcher": ".*",
       "action": {
         "type": "command",
-        "command": "cd \"D:\\Amol\\AI Projects\\Investment_Tanscation_Monitoring\" && git add -A && git diff --cached --quiet || git commit -m \"chore: auto-sync saved changes [$(git branch --show-current)]\"",
-        "timeout": 30
-      }
+        "command": "cd \"D:\\Amol\\AI Projects\\Investment_Tanscation_Monitoring\" && git add -A && git diff --cached --quiet || git commit -m \"chore: auto-sync saved changes [$(git branch --show-current)]\""
+      },
+      "description": "Stages and commits any saved file to the current branch automatically, keeping the working tree clean and all changes versioned.",
+      "matcher": ".*",
+      "enabled": true
     }
   ]
 }
