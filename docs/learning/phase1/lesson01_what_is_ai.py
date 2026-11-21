@@ -1,13 +1,17 @@
-"""
-╔══════════════════════════════════════════════════════════════════╗
-║  PERSONAL AI MENTOR  –  Phase 1, Lesson 1                       ║
-║  What is AI, ML, Deep Learning and Generative AI?               ║
-║  Audience : 16+ yrs .NET / AWS enterprise developer             ║
-║  Duration : ~60 minutes                                          ║
-╚══════════════════════════════════════════════════════════════════╝
+﻿"""
+# -*- coding: utf-8 -*-
+import sys, io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+
+# =================================================================
+#  PERSONAL AI MENTOR  -  Phase 1, Lesson 1
+#  What is AI, ML, Deep Learning and Generative AI?
+#  Audience : 16+ yrs .NET / AWS enterprise developer
+#  Duration : ~60 minutes
+# =================================================================
 
 WHAT YOU WILL LEARN
-───────────────────
+-------------------
 1. The relationship between AI, ML, Deep Learning and GenAI
 2. How ML differs from traditional software you already write
 3. The three learning paradigms (supervised, unsupervised, reinforcement)
@@ -17,19 +21,19 @@ WHAT YOU WILL LEARN
 7. Five interview questions you will face as an AI Technical Lead
 
 RUN THIS FILE
-─────────────
+-------------
     pip install numpy pandas scikit-learn
     python lesson01_what_is_ai.py
 
 NO PAID APIs REQUIRED.
 """
 
-# ══════════════════════════════════════════════════════════════════
-# SECTION 1 – The AI Landscape (READ THIS FIRST)
-# ══════════════════════════════════════════════════════════════════
+# ==================================================================
+# SECTION 1 - The AI Landscape (READ THIS FIRST)
+# ==================================================================
 """
 You already know this from enterprise software:
-─────────────────────────────────────────────────────────────────
+-----------------------------------------------------------------
   Traditional software = explicit rules written by a programmer.
 
   Example in C#:
@@ -40,7 +44,7 @@ You already know this from enterprise software:
   When rules change, a developer changes the code.
 
 AI / ML flips this:
-─────────────────────────────────────────────────────────────────
+-----------------------------------------------------------------
   You give the system EXAMPLES of past decisions.
   The system learns the rules itself.
 
@@ -49,9 +53,9 @@ AI / ML flips this:
       The model learns which combinations of features predict "review".
       No developer wrote those rules.
 
-─────────────────────────────────────────────────────────────────
+-----------------------------------------------------------------
   AI  ⊃  Machine Learning  ⊃  Deep Learning  ⊃  Generative AI
-─────────────────────────────────────────────────────────────────
+-----------------------------------------------------------------
 
   AI          = any technique that makes a computer behave intelligently
   ML          = AI that learns patterns from data (no explicit rules)
@@ -65,19 +69,19 @@ ENTERPRISE ANALOGY (from your world):
   GenAI       ~  a rule engine that also drafts responses, summaries, and code
 
 WHERE EACH FITS IN YOUR INVESTMENT PLATFORM:
-  ML          → flag suspicious transactions (numerical patterns)
-  Deep Learning → understand portfolio manager emails (language)
-  GenAI       → extract structured JSON from free-text emails, explain decisions
+  ML          -> flag suspicious transactions (numerical patterns)
+  Deep Learning -> understand portfolio manager emails (language)
+  GenAI       -> extract structured JSON from free-text emails, explain decisions
 """
 
-# ══════════════════════════════════════════════════════════════════
-# SECTION 2 – Three ML Learning Paradigms
-# ══════════════════════════════════════════════════════════════════
+# ==================================================================
+# SECTION 2 - Three ML Learning Paradigms
+# ==================================================================
 """
 1. SUPERVISED LEARNING
-   ─────────────────────
+   ---------------------
    You provide labelled examples: (input, correct_output).
-   The model learns to map inputs → outputs.
+   The model learns to map inputs -> outputs.
 
    .NET analogy: an ML model is like a trained IClassifier<Transaction, RiskLabel>
    whose weights were set by gradient descent instead of a human developer.
@@ -88,7 +92,7 @@ WHERE EACH FITS IN YOUR INVESTMENT PLATFORM:
      • Predict which broker to route an order to          (classification)
 
 2. UNSUPERVISED LEARNING
-   ──────────────────────
+   ----------------------
    No labels. The model discovers structure in raw data.
 
    .NET analogy: like running a GROUP BY on dimensions you haven't named yet.
@@ -99,18 +103,18 @@ WHERE EACH FITS IN YOUR INVESTMENT PLATFORM:
      • Discover topic groups in regulatory documents
 
 3. REINFORCEMENT LEARNING
-   ────────────────────────
+   ------------------------
    An agent takes actions, receives rewards/penalties, and learns a policy.
-   Less common in everyday enterprise AI — used in trading execution engines,
+   Less common in everyday enterprise AI -- used in trading execution engines,
    recommendation systems and robotics.
 
    .NET analogy: like a retry policy that learns the optimal backoff strategy
    from production feedback rather than from configuration.
 """
 
-# ══════════════════════════════════════════════════════════════════
-# SECTION 3 – The Core ML Concept: What a Model Actually IS
-# ══════════════════════════════════════════════════════════════════
+# ==================================================================
+# SECTION 3 - The Core ML Concept: What a Model Actually IS
+# ==================================================================
 """
 A model is just a MATHEMATICAL FUNCTION with learnable parameters (weights).
 
@@ -129,18 +133,18 @@ Training = an optimisation loop:
     5. Repeat thousands of times.
 
 This is the SAME optimisation concept as minimising latency in your
-microservices — you're just minimising prediction error instead.
+microservices -- you're just minimising prediction error instead.
 """
 
-# ══════════════════════════════════════════════════════════════════
-# SECTION 4 – HANDS-ON: Logistic Regression from scratch (NumPy only)
-# ══════════════════════════════════════════════════════════════════
+# ==================================================================
+# SECTION 4 - HANDS-ON: Logistic Regression from scratch (NumPy only)
+# ==================================================================
 """
 PROBLEM: Predict whether a financial transaction is high-risk (1) or normal (0).
 
 FEATURES:
-  x1 = transaction_amount_normalised  (0–1)
-  x2 = counterparty_risk_score        (0–1)
+  x1 = transaction_amount_normalised  (0-1)
+  x2 = counterparty_risk_score        (0-1)
 
 We will implement:
   • Sigmoid activation
@@ -154,16 +158,16 @@ After this, you will know exactly what scikit-learn does internally.
 import numpy as np
 
 np.random.seed(42)
-SEP = "─" * 65
+SEP = "-" * 65
 
 
-# ── 4.1 Generate synthetic transaction data ─────────────────────
+# -- 4.1 Generate synthetic transaction data ---------------------
 
 def generate_transaction_data(n: int = 200) -> tuple:
     """
     Synthetic dataset:
-      normal transactions    → low amount, low counterparty risk
-      high-risk transactions → high amount OR high counterparty risk
+      normal transactions    -> low amount, low counterparty risk
+      high-risk transactions -> high amount OR high counterparty risk
     """
     rng = np.random.default_rng(42)
 
@@ -187,21 +191,21 @@ def generate_transaction_data(n: int = 200) -> tuple:
 
 X, y = generate_transaction_data(200)
 print(SEP)
-print("SECTION 4 – Logistic Regression from Scratch")
+print("SECTION 4 - Logistic Regression from Scratch")
 print(SEP)
 print(f"Dataset: {len(X)} transactions | Features: {X.shape[1]}")
 print(f"Class distribution: {int(y.sum())} high-risk, {int((1-y).sum())} normal")
 print()
 
 
-# ── 4.2 Train/test split ────────────────────────────────────────
+# -- 4.2 Train/test split ----------------------------------------
 
 split = int(len(X) * 0.8)
 X_train, X_test = X[:split], X[split:]
 y_train, y_test = y[:split], y[split:]
 
 
-# ── 4.3 Sigmoid function ────────────────────────────────────────
+# -- 4.3 Sigmoid function ----------------------------------------
 
 def sigmoid(z: np.ndarray) -> np.ndarray:
     """
@@ -210,13 +214,13 @@ def sigmoid(z: np.ndarray) -> np.ndarray:
     
     σ(z) = 1 / (1 + e^(-z))
     
-    z → -∞  means probability ≈ 0  (very normal)
-    z → +∞  means probability ≈ 1  (very high-risk)
+    z -> -∞  means probability ~ 0  (very normal)
+    z -> +∞  means probability ~ 1  (very high-risk)
     """
     return 1.0 / (1.0 + np.exp(-np.clip(z, -500, 500)))
 
 
-# ── 4.4 Binary cross-entropy loss ───────────────────────────────
+# -- 4.4 Binary cross-entropy loss -------------------------------
 
 def binary_cross_entropy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     """
@@ -233,7 +237,7 @@ def binary_cross_entropy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     )
 
 
-# ── 4.5 Training loop (gradient descent) ────────────────────────
+# -- 4.5 Training loop (gradient descent) ------------------------
 
 def train_logistic_regression(
     X: np.ndarray,
@@ -242,7 +246,7 @@ def train_logistic_regression(
     epochs: int = 1000,
 ) -> tuple[np.ndarray, float]:
     """
-    The core ML training loop — identical in concept to what
+    The core ML training loop -- identical in concept to what
     scikit-learn, PyTorch and TensorFlow all do internally.
 
     Parameters
@@ -295,7 +299,7 @@ weights, bias = train_logistic_regression(X_train, y_train)
 print()
 
 
-# ── 4.6 Evaluate on test set ─────────────────────────────────────
+# -- 4.6 Evaluate on test set -------------------------------------
 
 def evaluate(
     X: np.ndarray,
@@ -348,13 +352,13 @@ print("  the prediction toward 'high-risk'. Both features should")
 print("  have positive weights because higher values = higher risk.")
 
 
-# ══════════════════════════════════════════════════════════════════
-# SECTION 5 – SAME PROBLEM with scikit-learn (what production uses)
-# ══════════════════════════════════════════════════════════════════
+# ==================================================================
+# SECTION 5 - SAME PROBLEM with scikit-learn (what production uses)
+# ==================================================================
 
 print()
 print(SEP)
-print("SECTION 5 – Same model with scikit-learn")
+print("SECTION 5 - Same model with scikit-learn")
 print(SEP)
 
 from sklearn.linear_model import LogisticRegression
@@ -362,7 +366,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report
 
-# In production you wrap in a Pipeline — identical to .NET middleware pipeline
+# In production you wrap in a Pipeline -- identical to .NET middleware pipeline
 sk_model = Pipeline([
     ("scaler", StandardScaler()),          # normalise features
     ("clf", LogisticRegression(            # logistic regression
@@ -387,30 +391,30 @@ print("  problem the same way. scikit-learn adds production robustness,")
 print("  convergence guarantees, and feature scaling. Use it in production.")
 
 
-# ══════════════════════════════════════════════════════════════════
-# SECTION 6 – The AI ↔ .NET Architecture Mapping
-# ══════════════════════════════════════════════════════════════════
+# ==================================================================
+# SECTION 6 - The AI ↔ .NET Architecture Mapping
+# ==================================================================
 
 print()
 print(SEP)
-print("SECTION 6 – AI concept ↔ .NET concept mapping")
+print("SECTION 6 - AI concept ↔ .NET concept mapping")
 print(SEP)
 
 MAPPING = [
     ("ML Model",          "A class with learned parameters (like a configured service)"),
-    ("Training",          "Dependency injection container setup — but automated"),
-    ("Inference",         "Calling a service method — model.Predict(input)"),
+    ("Training",          "Dependency injection container setup -- but automated"),
+    ("Inference",         "Calling a service method -- model.Predict(input)"),
     ("Features",          "The DTO fields you pass to a business rule engine"),
     ("Labels / targets",  "The expected return value you would unit-test against"),
     ("Loss function",     "A custom IComparable that measures prediction quality"),
-    ("Gradient descent",  "An optimiser — like a self-tuning retry/backoff policy"),
-    ("Epoch",             "One full pass through training data — like a migration batch"),
-    ("Overfitting",       "A model that memorised training data — like hardcoded test stubs"),
-    ("Regularisation",    "Adding a penalty for complexity — like SOLID/YAGNI principles"),
-    ("Pipeline",          "ASP.NET middleware pipeline — ordered transformations"),
-    ("Validation set",    "Integration test suite — unseen data before production"),
-    ("Test set",          "Production smoke test — final unbiased evaluation"),
-    ("MLflow experiment", "Application Insights — experiment and metric tracking"),
+    ("Gradient descent",  "An optimiser -- like a self-tuning retry/backoff policy"),
+    ("Epoch",             "One full pass through training data -- like a migration batch"),
+    ("Overfitting",       "A model that memorised training data -- like hardcoded test stubs"),
+    ("Regularisation",    "Adding a penalty for complexity -- like SOLID/YAGNI principles"),
+    ("Pipeline",          "ASP.NET middleware pipeline -- ordered transformations"),
+    ("Validation set",    "Integration test suite -- unseen data before production"),
+    ("Test set",          "Production smoke test -- final unbiased evaluation"),
+    ("MLflow experiment", "Application Insights -- experiment and metric tracking"),
 ]
 
 print(f"  {'AI / ML Concept':<30}  .NET Equivalent")
@@ -419,13 +423,13 @@ for ai_term, net_equiv in MAPPING:
     print(f"  {ai_term:<30}  {net_equiv}")
 
 
-# ══════════════════════════════════════════════════════════════════
-# SECTION 7 – Where GenAI fits on top of ML
-# ══════════════════════════════════════════════════════════════════
+# ==================================================================
+# SECTION 7 - Where GenAI fits on top of ML
+# ==================================================================
 
 print()
 print(SEP)
-print("SECTION 7 – GenAI vs Classical ML in your investment platform")
+print("SECTION 7 - GenAI vs Classical ML in your investment platform")
 print(SEP)
 
 COMPARISON = [
@@ -452,13 +456,13 @@ print("  Your investment platform needs BOTH.")
 print("  Classical ML for numerical patterns, GenAI for language and generation.")
 
 
-# ══════════════════════════════════════════════════════════════════
-# SECTION 8 – Five Technical Lead Interview Questions
-# ══════════════════════════════════════════════════════════════════
+# ==================================================================
+# SECTION 8 - Five Technical Lead Interview Questions
+# ==================================================================
 
 print()
 print(SEP)
-print("SECTION 8 – Interview Questions for AI Technical Lead")
+print("SECTION 8 - Interview Questions for AI Technical Lead")
 print(SEP)
 
 QUESTIONS = [
@@ -466,7 +470,7 @@ QUESTIONS = [
         "Q1. What is the difference between AI, ML, Deep Learning and GenAI?",
         """AI is the broad field of building intelligent systems.
    ML is a subset that learns patterns from data instead of explicit rules.
-   Deep Learning is a subset of ML using multi-layer neural networks —
+   Deep Learning is a subset of ML using multi-layer neural networks --
    especially useful for unstructured data like text and images.
    Generative AI is a subset of Deep Learning that creates new content.
    In my investment platform I use classical ML for transaction risk scoring
@@ -485,7 +489,7 @@ QUESTIONS = [
         "Q3. What is gradient descent and why does it matter?",
         """Gradient descent is the optimisation algorithm that trains a model.
    It iteratively adjusts the model weights in the direction that reduces the
-   loss function — the measure of prediction error.
+   loss function -- the measure of prediction error.
    It matters because almost all production ML and deep learning models
    are trained using variants of gradient descent (SGD, Adam, AdamW).
    Understanding it helps me debug training instability, tune learning rates,
@@ -525,18 +529,18 @@ QUESTIONS = [
 
 for question, answer in QUESTIONS:
     print(f"\n  {question}")
-    print(f"  {'─' * (len(question) - 2)}")
+    print(f"  {'-' * (len(question) - 2)}")
     for line in answer.strip().split("\n"):
         print(f"  {line}")
 
 
-# ══════════════════════════════════════════════════════════════════
-# SECTION 9 – Your Practical Exercise for Today
-# ══════════════════════════════════════════════════════════════════
+# ==================================================================
+# SECTION 9 - Your Practical Exercise for Today
+# ==================================================================
 
 print()
 print(SEP)
-print("SECTION 9 – Today's Exercises")
+print("SECTION 9 - Today's Exercises")
 print(SEP)
 print("""
   EXERCISE 1 (10 min): Modify the training loop above.
@@ -564,8 +568,8 @@ print("""
 
 print(SEP)
 print("NEXT LESSON: lesson02_supervised_learning.py")
-print("  → Decision Trees, Random Forest, XGBoost")
-print("  → Feature importance and model explainability")
-print("  → Hyperparameter tuning")
-print("  → Applying XGBoost to transaction risk scoring")
+print("  -> Decision Trees, Random Forest, XGBoost")
+print("  -> Feature importance and model explainability")
+print("  -> Hyperparameter tuning")
+print("  -> Applying XGBoost to transaction risk scoring")
 print(SEP)

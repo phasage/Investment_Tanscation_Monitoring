@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Git status on session start",
+      "trigger": "SessionStart",
+      "description": "Shows current branch, last 5 commits, and working tree status at the start of every session so you always know where you are.",
+      "action": {
+        "type": "command",
+        "command": "cd \"D:\\Amol\\AI Projects\\Investment_Tanscation_Monitoring\" && echo \"=== Git Status ===\" && git branch --show-current && git log --oneline -5 && git status --short",
+        "timeout": 10
+      }
+    }
+  ]
+}
