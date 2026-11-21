@@ -83,9 +83,9 @@ print(SEP)
 def generate_portfolio_data(n: int = 500, seed: int = 42) -> pd.DataFrame:
     """
     Synthetic portfolio behaviour data.
-    
+
     Each row = one portfolio's behaviour over the last 30 days.
-    
+
     Features:
       avg_daily_trades     - average number of trades per day
       avg_trade_size_gbp   - average trade size in GBP
@@ -94,92 +94,71 @@ def generate_portfolio_data(n: int = 500, seed: int = 42) -> pd.DataFrame:
       after_hours_pct      - % of trades placed after market hours
       new_counterparty_pct - % of trades with new counterparties
       concentration_score  - Herfindahl index (0=diversified, 1=concentrated)
-    
-    Hidden structure (we know but the model does NOT):
+
+    Hidden structure (the model does NOT know these labels):
       Group A - Large institutional, diversified, low risk
       Group B - Medium hedge fund, concentrated, high FX
       Group C - Retail/small, infrequent, domestic
       Group D - Anomalous / potentially suspicious (small cluster)
     """
     rng = np.random.default_rng(seed)
-
-    groups = {
-        "A_institutional": {
-            "n": int(n * 0.35),
-            "avg_daily_trades":     rng.normal(45, 8),
-            "avg_trade_size_gbp":   rng.lognormal(12.5, 0.4),
-            "equity_pct":           rng.beta(5, 3),
-            "fx_exposure_pct":      rng.beta(3, 5),
-            "after_hours_pct":      rng.beta(1, 15),
-            "new_counterparty_pct": rng.beta(1, 12),
-            "concentration_score":  rng.beta(2, 8),
-        },
-        "B_hedge_fund": {
-            "n": int(n * 0.30),
-            "avg_daily_trades":     rng.normal(120, 25),
-            "avg_trade_size_gbp":   rng.lognormal(11.5, 0.6),
-            "equity_pct":           rng.beta(3, 3),
-            "fx_exposure_pct":      rng.beta(7, 2),
-            "after_hours_pct":      rng.beta(2, 8),
-            "new_counterparty_pct": rng.beta(2, 8),
-            "concentration_score":  rng.beta(6, 3),
-        },
-        "C_retail": {
-            "n": int(n * 0.30),
-            "avg_daily_trades":     rng.normal(5, 2),
-            "avg_trade_size_gbp":   rng.lognormal(9.0, 0.5),
-            "equity_pct":           rng.beta(4, 4),
-            "fx_exposure_pct":      rng.beta(1, 8),
-            "after_hours_pct":      rng.beta(1, 20),
-            "new_counterparty_pct": rng.beta(1, 20),
-            "concentration_score":  rng.beta(3, 5),
-        },
-    }
-
     frames = []
-    for group_name, params in groups.items():
-        count = params["n"]
-        frame = pd.DataFrame({
-            "avg_daily_trades":     np.abs(params["avg_daily_trades"](count)
-                                           if callable(params["avg_daily_trades"])
-                                           else rng.normal(params["avg_daily_trades"], 1, count)),
-            "avg_trade_size_gbp":   params["avg_trade_size_gbp"](count)
-                                    if callable(params["avg_trade_size_gbp"])
-                                    else rng.lognormal(10, 0.5, count),
-            "equity_pct":           np.clip(params["equity_pct"](count)
-                                            if callable(params["equity_pct"])
-                                            else rng.beta(4, 4, count), 0, 1),
-            "fx_exposure_pct":      np.clip(params["fx_exposure_pct"](count)
-                                            if callable(params["fx_exposure_pct"])
-                                            else rng.beta(2, 5, count), 0, 1),
-            "after_hours_pct":      np.clip(params["after_hours_pct"](count)
-                                            if callable(params["after_hours_pct"])
-                                            else rng.beta(1, 15, count), 0, 1),
-            "new_counterparty_pct": np.clip(params["new_counterparty_pct"](count)
-                                            if callable(params["new_counterparty_pct"])
-                                            else rng.beta(1, 12, count), 0, 1),
-            "concentration_score":  np.clip(params["concentration_score"](count)
-                                            if callable(params["concentration_score"])
-                                            else rng.beta(3, 5, count), 0, 1),
-            "true_group":           group_name,
-        })
-        frames.append(frame)
 
-    # Add anomalous portfolios (5%)
-    n_anomalous = int(n * 0.05)
-    anomalous = pd.DataFrame({
-        "avg_daily_trades":     rng.uniform(200, 500, n_anomalous),
-        "avg_trade_size_gbp":   rng.lognormal(14, 1, n_anomalous),
-        "equity_pct":           rng.uniform(0, 1, n_anomalous),
-        "fx_exposure_pct":      rng.uniform(0.7, 1.0, n_anomalous),
-        "after_hours_pct":      rng.uniform(0.4, 0.9, n_anomalous),
-        "new_counterparty_pct": rng.uniform(0.5, 1.0, n_anomalous),
-        "concentration_score":  rng.uniform(0.7, 1.0, n_anomalous),
+    # --- Group A: Large institutional ---
+    na = int(n * 0.35)
+    frames.append(pd.DataFrame({
+        "avg_daily_trades":     np.abs(rng.normal(45, 8, na)),
+        "avg_trade_size_gbp":   rng.lognormal(12.5, 0.4, na),
+        "equity_pct":           np.clip(rng.beta(5, 3, na), 0, 1),
+        "fx_exposure_pct":      np.clip(rng.beta(3, 5, na), 0, 1),
+        "after_hours_pct":      np.clip(rng.beta(1, 15, na), 0, 1),
+        "new_counterparty_pct": np.clip(rng.beta(1, 12, na), 0, 1),
+        "concentration_score":  np.clip(rng.beta(2, 8, na), 0, 1),
+        "true_group":           "A_institutional",
+    }))
+
+    # --- Group B: Hedge fund ---
+    nb = int(n * 0.30)
+    frames.append(pd.DataFrame({
+        "avg_daily_trades":     np.abs(rng.normal(120, 25, nb)),
+        "avg_trade_size_gbp":   rng.lognormal(11.5, 0.6, nb),
+        "equity_pct":           np.clip(rng.beta(3, 3, nb), 0, 1),
+        "fx_exposure_pct":      np.clip(rng.beta(7, 2, nb), 0, 1),
+        "after_hours_pct":      np.clip(rng.beta(2, 8, nb), 0, 1),
+        "new_counterparty_pct": np.clip(rng.beta(2, 8, nb), 0, 1),
+        "concentration_score":  np.clip(rng.beta(6, 3, nb), 0, 1),
+        "true_group":           "B_hedge_fund",
+    }))
+
+    # --- Group C: Retail ---
+    nc = int(n * 0.30)
+    frames.append(pd.DataFrame({
+        "avg_daily_trades":     np.abs(rng.normal(5, 2, nc)),
+        "avg_trade_size_gbp":   rng.lognormal(9.0, 0.5, nc),
+        "equity_pct":           np.clip(rng.beta(4, 4, nc), 0, 1),
+        "fx_exposure_pct":      np.clip(rng.beta(1, 8, nc), 0, 1),
+        "after_hours_pct":      np.clip(rng.beta(1, 20, nc), 0, 1),
+        "new_counterparty_pct": np.clip(rng.beta(1, 20, nc), 0, 1),
+        "concentration_score":  np.clip(rng.beta(3, 5, nc), 0, 1),
+        "true_group":           "C_retail",
+    }))
+
+    # --- Group D: Anomalous ---
+    nd = int(n * 0.05)
+    frames.append(pd.DataFrame({
+        "avg_daily_trades":     rng.uniform(200, 500, nd),
+        "avg_trade_size_gbp":   rng.lognormal(14, 1, nd),
+        "equity_pct":           rng.uniform(0, 1, nd),
+        "fx_exposure_pct":      rng.uniform(0.7, 1.0, nd),
+        "after_hours_pct":      rng.uniform(0.4, 0.9, nd),
+        "new_counterparty_pct": rng.uniform(0.5, 1.0, nd),
+        "concentration_score":  rng.uniform(0.7, 1.0, nd),
         "true_group":           "D_anomalous",
-    })
-    frames.append(anomalous)
+    }))
 
-    df = pd.concat(frames, ignore_index=True).sample(frac=1, random_state=seed).reset_index(drop=True)
+    df = pd.concat(frames, ignore_index=True).sample(
+        frac=1, random_state=seed
+    ).reset_index(drop=True)
     return df
 
 
